@@ -1,0 +1,45 @@
+# Build artifacts
+mtl-ldap-admin
+mtl-ldap-admin.new
+mtl-ldap-admin.bak-*
+*.exe
+*.test
+*.out
+
+# Frontend
+web/node_modules/
+web/dist/
+web/.vite/
+
+# Local config / data
+.env
+.env.local
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Backups
+*.bak-*
+src.bak-*
+
+# Audit data — never commit
+audit.db
+
+# Cert dirs
+ssl/
+certs/

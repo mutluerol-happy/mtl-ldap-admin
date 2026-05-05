@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-feature-settings: 'cv11', 'ss01';
+  }
+
+  /* Scrollbars — match the dark engineering aesthetic */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #262626;
+    border-radius: 0;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #404040;
+  }
+
+  /* Selection */
+  ::selection {
+    background: rgba(245, 158, 11, 0.3);
+    color: #fff;
+  }
+}
+
+@layer components {
+  .label-mono {
+    @apply font-mono text-[10px] uppercase tracking-widest text-ink-500;
+  }
+
+  .hairline {
+    @apply border-t border-ink-700;
+  }
+
+  .panel {
+    @apply bg-ink-900 border border-ink-700;
+  }
+
+  .row-hover {
+    @apply transition-colors hover:bg-ink-800/50;
+  }
+
+  .toast-enter {
+    animation: toast-in 200ms ease-out;
+  }
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
