@@ -1,0 +1,131 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 Mutlu Erol
+#
+# ============================================================
+# MTL LDAP Admin — Özel OpenLDAP Şema Uzantıları
+# ============================================================
+# Bu LDIF dosyası MTL'e özgün attribute'lar ve auxiliary
+# objectClass'ı OpenLDAP cn=config içine yükler.
+#
+# Yükleme:
+#   sudo ldapadd -Y EXTERNAL -H ldapi:/// -f mtl-openldap-schema.ldif
+#
+# ============================================================
+# ÖNEMLİ — IANA Private Enterprise Number (PEN)
+# ============================================================
+# Aşağıdaki OID prefix'i (1.3.6.1.4.1.99999) yer tutucudur.
+# Üretim kullanımı öncesi:
+#   1. MTL kuruluşu IANA'dan PEN almalı
+#      (https://www.iana.org/assignments/enterprise-numbers/)
+#   2. Bu dosyadaki tüm `99999` değerleri alınan PEN ile değiştirilmeli
+#   3. Yerine örn. `1.3.6.1.4.1.<MTL_PEN>` yazılmalı
+# ============================================================
+
+dn: cn=mtl-schema,cn=schema,cn=config
+objectClass: olcSchemaConfig
+cn: mtl-schema
+#
+# ----- Attribute Tanımları -----
+#
+olcAttributeTypes: ( 1.3.6.1.4.1.99999.1.1.1
+  NAME 'mtlMfaEnabled'
+  DESC 'TOTP MFA aktifligi (BOOLEAN)'
+  EQUALITY booleanMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+  SINGLE-VALUE )
+#
+olcAttributeTypes: ( 1.3.6.1.4.1.99999.1.1.2
+  NAME 'mtlMfaSecret'
+  DESC 'Fernet ile sifrelenmis TOTP secret'
+  EQUALITY caseExactMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{512}
+  SINGLE-VALUE )
+#
+olcAttributeTypes: ( 1.3.6.1.4.1.99999.1.1.3
+  NAME 'mtlPasswordHistory'
+  DESC 'Gecmis parola hashleri listesi'
+  EQUALITY caseExactMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{1024} )
+#
+olcAttributeTypes: ( 1.3.6.1.4.1.99999.1.1.4
+  NAME 'mtlProfilePhoto'
+  DESC 'Profil fotografi (binary JPEG, max 200KB)'
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.5
+  SINGLE-VALUE )
+#
+olcAttributeTypes: ( 1.3.6.1.4.1.99999.1.1.5
+  NAME 'mtlLastLoginAt'
+  DESC 'Son basarili giris zamani'
+  EQUALITY generalizedTimeMatch
+  ORDERING generalizedTimeOrderingMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.24
+  SINGLE-VALUE )
+#
+olcAttributeTypes: ( 1.3.6.1.4.1.99999.1.1.6
+  NAME 'mtlAccountExpiresAt'
+  DESC 'Hesabin sona erecegi zaman'
+  EQUALITY generalizedTimeMatch
+  ORDERING generalizedTimeOrderingMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.24
+  SINGLE-VALUE )
+#
+olcAttributeTypes: ( 1.3.6.1.4.1.99999.1.1.7
+  NAME 'mtlPreferredLanguage'
+  DESC 'Tercih edilen dil (tr veya en)'
+  EQUALITY caseIgnoreMatch
+  SUBSTR caseIgnoreSubstringsMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{8}
+  SINGLE-VALUE )
+#
+olcAttributeTypes: ( 1.3.6.1.4.1.99999.1.1.8
+  NAME 'mtlLastPasswordChangeAt'
+  DESC 'Son parola degisiklik zamani'
+  EQUALITY generalizedTimeMatch
+  ORDERING generalizedTimeOrderingMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.24
+  SINGLE-VALUE )
+#
+olcAttributeTypes: ( 1.3.6.1.4.1.99999.1.1.9
+  NAME 'mtlSecurityFlags'
+  DESC 'Guvenlik bayraklari (MUST_CHANGE_PASSWORD, MFA_REQUIRED vb.)'
+  EQUALITY caseIgnoreMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256} )
+#
+# ----- objectClass Tanimi -----
+#
+# mtlPersonExtension auxiliary olarak inetOrgPerson'a eklenir.
+# Boylelikle mevcut LDAP entry'lerine geriye donuk uyumlu sekilde
+# MTL'e ozgu attribute'lar eklenebilir.
+#
+olcObjectClasses: ( 1.3.6.1.4.1.99999.1.2.1
+  NAME 'mtlPersonExtension'
+  DESC 'MTL LDAP Admin son kullanici uzantilari'
+  SUP top
+  AUXILIARY
+  MAY ( mtlMfaEnabled $
+        mtlMfaSecret $
+        mtlPasswordHistory $
+        mtlProfilePhoto $
+        mtlLastLoginAt $
+        mtlAccountExpiresAt $
+        mtlPreferredLanguage $
+        mtlLastPasswordChangeAt $
+        mtlSecurityFlags ) )
+
+# ============================================================
+# Kullanim Notu
+# ============================================================
+# Bu sema yuklendikten sonra mevcut bir kullaniciyi guncellemek icin:
+#
+# ldapmodify -x -D "cn=admin,dc=mtl,dc=local" -W <<EOF
+# dn: uid=ahmet,ou=people,dc=mtl,dc=local
+# changetype: modify
+# add: objectClass
+# objectClass: mtlPersonExtension
+# -
+# add: mtlMfaEnabled
+# mtlMfaEnabled: FALSE
+# EOF
+#
+# Yeni olusturulan kullanicilara MTL backend'i mtlPersonExtension
+# objectClass'ini otomatik ekler.

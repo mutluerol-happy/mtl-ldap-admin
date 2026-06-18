@@ -1,0 +1,81 @@
+{
+  "title": "Alarmlar",
+  "filters": {
+    "allStatus": "Tüm durumlar",
+    "allSeverity": "Tüm severity"
+  },
+  "status": {
+    "open": "Açık",
+    "acknowledged": "Onaylandı",
+    "resolved": "Çözüldü",
+    "suppressed": "Bastırıldı"
+  },
+  "columns": {
+    "time": "Zaman",
+    "severity": "Severity",
+    "status": "Durum",
+    "summary": "Özet",
+    "event": "Olay"
+  },
+  "empty": {
+    "title": "Tetiklenmiş alert yok",
+    "description": "Bu filtrelerle eşleşen bir alert event'i bulunamadı. Sistem sakin."
+  },
+  "rule": {
+    "disable": "Devre dışı bırak",
+    "enable": "Aktifleştir",
+    "filterByRule": "Bu kuralın event'lerini filtrele",
+    "disabled": "devre dışı"
+  },
+  "detail": {
+    "back": "Geri",
+    "eventCount": "Olay sayısı",
+    "windowStart": "Pencere başı",
+    "windowEnd": "Pencere sonu",
+    "acknowledged": "Onaylandı",
+    "acknowledgedBy": "Onaylayan",
+    "resolved": "Çözüldü",
+    "resolvedBy": "Çözen",
+    "ackResolve": "İncelendi / Çözüldü",
+    "resolveAction": "Çöz (resolve)",
+    "resolveNoteLabel": "Çözüm Notu",
+    "matchingEvents": "Eşleşen Olaylar ({{count}})"
+  },
+  "rules": {
+    "title": "Alert Kuralları",
+    "activeCount": "{{count}} aktif",
+    "loading": "Yükleniyor…",
+    "empty": "Tanımlı kural yok.",
+    "filterEvents": "Olayları filtrele",
+    "disabled": "devre dışı",
+    "minShort": "dk",
+    "filterEventsTitle": "Bu kuralın olaylarını filtrele",
+    "eventsLoadError": "Alert olayları yüklenemedi"
+  },
+  "subtitle": "Sistemde tanımlı alert kuralları ve tetiklenen olaylar.",
+  "refresh": "Yenile",
+  "resolve": {
+    "title": "Alert'i Çöz",
+    "description": "Bu alert'in kök nedeni giderildi; alert'i kapatın.",
+    "submit": "Çöz",
+    "submitting": "Çözülüyor…",
+    "ack": "Onayla",
+    "acking": "Onaylanıyor…",
+    "ackTitle": "Alert'i Onayla",
+    "ackDescription": "Bu alert'i incelediğinizi belirtin (acknowledge).",
+    "ackNotePlaceholder": "Bu alert'i niye incelediğinizi yazın…",
+    "resolveNote": "Çözüm Notu",
+    "resolveNotePlaceholder": "Sorunu nasıl çözdüğünüzü, hangi aksiyonu aldığınızı belgeleyin…",
+    "ackInfo": "Acknowledge, alert'i \"açık → onaylandı\" durumuna geçirir. Hala çözülmemiş sayılır, ancak ekibin haberi olduğunu belgeler.",
+    "resolveInfo": "Çözüm notu zorunludur. Alert \"çözüldü\" durumuna geçer ve audit log'a kayıt düşülür."
+  },
+  "ruleEdit": {
+    "thresholdHint": "Bu sayıdaki olay window içinde gelirse tetikle",
+    "windowHint": "Threshold'ı hangi pencerede ara",
+    "cooldownHint": "Aynı kural ardarda kaç dakika tetiklenmesin",
+    "descLabel": "Açıklama",
+    "descPlaceholder": "Bu kural ne zaman tetiklenir, nasıl yorumlanır…",
+    "channels": "Bildirim kanalları"
+  },
+  "triggeredEvents": "Tetiklenen Olaylar:"
+}

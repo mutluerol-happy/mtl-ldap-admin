@@ -1,0 +1,10 @@
+[Unit]
+Description=MTL Shield ayricalikli cert-apply runner (oneshot, root)
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/opt/mtl/bin/mtl-cert-apply-runner
+# ROOT calismali: slapd restart + /etc/mtl/ssl yazimi + update-ca-trust + restorecon.
+# Bilerek NNP/sandbox YOK — guvenlik runner'in siki whitelist validasyonunda
+# (yalnizca activate-server|activate-ca|activate-bundle + UUID arg; shell yok).

@@ -1,0 +1,85 @@
+{
+  "title": "Cluster",
+  "refresh": "Refresh",
+  "stats": {
+    "totalNodes": "Total Nodes",
+    "online": "Online",
+    "offlineDegraded": "Offline / Degraded",
+    "queuePending": "Pending in Queue"
+  },
+  "info": {
+    "masterNode": "Master Node",
+    "lastSync": "Last Sync",
+    "queueFailed": "Queue Failed",
+    "never": "Never",
+    "title": "Cluster Info"
+  },
+  "fields": {
+    "hostname": "Hostname",
+    "baseUrl": "Base URL",
+    "version": "Version",
+    "registered": "Registered",
+    "lastHeartbeat": "Last Heartbeat",
+    "lastSync": "Last Sync"
+  },
+  "queue": {
+    "allStatus": "All statuses",
+    "empty": "No items in queue.",
+    "entered": "Entered queue:"
+  },
+  "subtitle": "Master–Slave node health and data sync queue.",
+  "tabs": {
+    "overview": "Overview",
+    "nodes": "Nodes",
+    "queue": "Sync Queue",
+    "sync": "Sync State"
+  },
+  "health": {
+    "title": "Cluster Health Warning",
+    "queueFailedMessage": "{{count}} items failed in queue — check the Sync Queue tab"
+  },
+  "loadError": "Failed to load cluster status",
+  "nodeForm": {
+    "addButton": "Add Node",
+    "title": "New Cluster Node",
+    "nodeId": "Node ID",
+    "nodeType": "Node Type",
+    "hostname": "Hostname",
+    "baseUrl": "Base URL",
+    "submit": "Add",
+    "fillAll": "Fill all required fields",
+    "added": "{{node}} added",
+    "deleted": "{{node}} deleted",
+    "deleteTitle": "Delete node",
+    "confirmDelete": "Are you sure you want to delete node {{node}}?",
+    "cannotDeleteMaster": "Master node cannot be deleted"
+  },
+  "syncState": {
+    "subtitle": "Each node's LDAP contextCSN is compared against the master.",
+    "masterCsn": "Master contextCSN",
+    "checkedAt": "Checked:",
+    "inSync": "In Sync",
+    "lagging": "Lagging",
+    "unreachable": "Unreachable",
+    "master": "Master"
+  },
+  "provision": {
+    "title": "Provision New Consumer",
+    "resultTitle": "Install Command Ready",
+    "resultIntro": "{{node}} registered. Run the command below as root on the NEW server:",
+    "commandLabel": "One-paste install command",
+    "copy": "Copy",
+    "copied": "Copied",
+    "copyFailed": "Could not copy to clipboard",
+    "step1": "Run the command on the new consumer server — it sets up read-only OpenLDAP replication automatically.",
+    "step2": "When done, the node self-registers and appears 'online' here.",
+    "expires": "Command valid until {{time}} (single use).",
+    "securityNote": "The command contains the certificate + replication password; transmit securely, do not share.",
+    "done": "Done",
+    "ip": "IP Address",
+    "replicatorPassword": "Replicator Password",
+    "replicatorHint": "In /root/mtl-secrets.txt on master",
+    "formNote": "The new server is installed as a pure OpenLDAP consumer (read-only replica). The replication password is fetched automatically from the master; a cert is generated and a one-time install command is returned.",
+    "submit": "Provision"
+  }
+}

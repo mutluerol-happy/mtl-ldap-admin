@@ -1,0 +1,193 @@
+#!/usr/bin/env bash
+# mtl-cert-apply — ayricalikli TLS sertifika aktivasyon helper'i (ROOT calisir)
+# Kullanim:
+#   mtl-cert-apply activate-server <cert_id>
+#   mtl-cert-apply activate-ca     <cert_id>
+#   mtl-cert-apply activate-bundle <ca_id> <server_id>
+# Cikti: STDERR'e insan-okur log; STDOUT'un SON satirinda tek JSON nesnesi:
+#   {"ok":true,"slapd_reloaded":true,"nginx_reloaded":true,"ca_trust_updated":false,
+#    "ldaps_fingerprint":"...","https_fingerprint":"...","message":"..."}
+# rc 0 = basari. Hata: rollback + {"ok":false,...} + rc!=0.
+#
+# Env override (test/uyarlama):
+#   MTL_SSL_DIR(/etc/mtl/ssl) MTL_STAGING_DIR($SSL/staging)
+#   MTL_SLAPD_UNIT(slapd.service) MTL_NGINX_UNIT(nginx.service)
+#   MTL_LDAPS_ADDR(127.0.0.1:636) MTL_HTTPS_ADDR(127.0.0.1:443)
+#   MTL_CA_ANCHOR(/etc/pki/ca-trust/source/anchors/mtl-ca.pem)
+#   MTL_SKIP_LIVE_VERIFY(0)  -> 1: s_client fingerprint probe atla (test)
+set -uo pipefail
+
+SSL_DIR="${MTL_SSL_DIR:-/etc/mtl/ssl}"
+STAGING_DIR="${MTL_STAGING_DIR:-$SSL_DIR/staging}"
+SLAPD_UNIT="${MTL_SLAPD_UNIT:-slapd.service}"
+NGINX_UNIT="${MTL_NGINX_UNIT:-nginx.service}"
+LDAPS_ADDR="${MTL_LDAPS_ADDR:-127.0.0.1:636}"
+HTTPS_ADDR="${MTL_HTTPS_ADDR:-127.0.0.1:443}"
+CA_ANCHOR="${MTL_CA_ANCHOR:-/etc/pki/ca-trust/source/anchors/mtl-ca.pem}"
+SKIP_LIVE_VERIFY="${MTL_SKIP_LIVE_VERIFY:-0}"
+TS="$(date +%Y%m%d-%H%M%S)"
+
+log(){ echo "[mtl-cert-apply] $*" >&2; }
+jstr(){ python3 -c 'import json,sys;print(json.dumps(sys.argv[1]))' "$1"; }
+# emit <ok-bool> <message> [k=jsonvalue ...]
+emit(){
+  local ok="$1" msg="$2"; shift 2
+  local extra=""
+  local kv
+  for kv in "$@"; do extra="${extra},\"${kv%%=*}\":${kv#*=}"; done
+  printf '{"ok":%s,"message":%s%s}\n' "$ok" "$(jstr "$msg")" "$extra"
+}
+
+UUID_RE='^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$'
+need_uuid(){ [[ "$1" =~ $UUID_RE ]] || { emit false "Gecersiz id (uuid degil): $1"; exit 2; }; }
+
+# stat ile sahip:grup:mod yakala (yoksa bos)
+own_mode(){ stat -c '%U:%G:%a' "$1" 2>/dev/null || true; }
+apply_own_mode(){ # <file> <user:group:mode>
+  local f="$1" omm="$2"
+  [ -z "$omm" ] && return 0
+  local u="${omm%%:*}"; local rest="${omm#*:}"; local g="${rest%%:*}"; local m="${rest##*:}"
+  chown "$u:$g" "$f" 2>/dev/null || true
+  chmod "$m" "$f" 2>/dev/null || true
+}
+
+fp_file(){ openssl x509 -noout -fingerprint -sha256 -in "$1" 2>/dev/null | sed 's/^.*=//'; }
+fp_live(){ # <host:port> [starttls-proto] -> fingerprint veya bos
+  [ "$SKIP_LIVE_VERIFY" = "1" ] && { echo ""; return 0; }
+  local addr="$1" proto="${2:-}"
+  local args=(s_client -connect "$addr" -servername "${addr%%:*}")
+  [ -n "$proto" ] && args+=(-starttls "$proto")
+  echo | timeout 8 openssl "${args[@]}" 2>/dev/null \
+    | openssl x509 -noout -fingerprint -sha256 2>/dev/null | sed 's/^.*=//'
+}
+fp_live_match(){ # <addr> <want> [proto] -> dogru cert gelene kadar kisa retry
+  [ "$SKIP_LIVE_VERIFY" = "1" ] && { echo ""; return 0; }
+  local addr="$1" want="$2" proto="${3:-}" fp=""
+  for _ in 1 2 3 4 5 6 7 8; do
+    fp="$(fp_live "$addr" "$proto")"
+    if [ -n "$fp" ]; then
+      [ -z "$want" ] && { echo "$fp"; return 0; }
+      [ "$fp" = "$want" ] && { echo "$fp"; return 0; }
+    fi
+    sleep 0.5
+  done
+  echo "$fp"
+}
+
+# --- dogrulama: cert parse + (server) key eslesme + (server/ca) tarih ---
+validate_cert(){ # <pem>
+  openssl x509 -in "$1" -noout 2>/dev/null || { emit false "Sertifika PEM parse edilemedi."; exit 3; }
+  openssl x509 -in "$1" -noout -checkend 0 >/dev/null 2>&1 || { emit false "Sertifika suresi dolmus."; exit 3; }
+}
+validate_key_match(){ # <cert.pem> <key.pem>
+  [ -f "$2" ] || { emit false "Ozel anahtar yok: $2"; exit 3; }
+  local cm km
+  cm="$(openssl x509 -noout -modulus -in "$1" 2>/dev/null | openssl md5 2>/dev/null)"
+  km="$(openssl rsa  -noout -modulus -in "$2" 2>/dev/null | openssl md5 2>/dev/null)"
+  if [ -z "$cm" ] || [ "$cm" != "$km" ]; then
+    # RSA degilse pkey ile dene
+    km="$(openssl pkey -in "$2" -pubout 2>/dev/null | openssl md5 2>/dev/null)"
+    cm="$(openssl x509 -in "$1" -noout -pubkey 2>/dev/null | openssl md5 2>/dev/null)"
+    [ -n "$cm" ] && [ "$cm" = "$km" ] || { emit false "Sertifika ile ozel anahtar eslesmiyor."; exit 3; }
+  fi
+}
+
+restore_one(){ # <live> <bakfile>
+  [ -f "$2" ] || return 0
+  cp -a "$2" "$1"
+}
+
+restart_slapd(){
+  systemctl restart "$SLAPD_UNIT" >/dev/null 2>&1
+  sleep 1
+  systemctl is-active --quiet "$SLAPD_UNIT"
+}
+reload_nginx(){
+  nginx -t >/dev/null 2>&1 || return 1
+  systemctl reload "$NGINX_UNIT" >/dev/null 2>&1
+  systemctl is-active --quiet "$NGINX_UNIT"
+}
+
+action="${1:-}"; 
+case "$action" in
+  activate-server)
+    cid="${2:-}"; need_uuid "$cid"
+    src_cert="$STAGING_DIR/$cid/cert.pem"; src_key="$STAGING_DIR/$cid/cert.key"
+    [ -f "$src_cert" ] || { emit false "Staging cert yok: $src_cert"; exit 3; }
+    validate_cert "$src_cert"
+    validate_key_match "$src_cert" "$src_key"
+    live_cert="$SSL_DIR/server.pem"; live_key="$SSL_DIR/server.key"
+    om_cert="$(own_mode "$live_cert")"; om_key="$(own_mode "$live_key")"
+    # yedek
+    bak_cert="$live_cert.bak-$TS"; bak_key="$live_key.bak-$TS"
+    cp -a "$live_cert" "$bak_cert" 2>/dev/null || true
+    cp -a "$live_key"  "$bak_key"  2>/dev/null || true
+    log "yedek: $bak_cert , $bak_key"
+    # atomik swap (ayni dizin -> rename atomik)
+    install -m 0644 "$src_cert" "$live_cert.new"
+    install -m 0640 "$src_key"  "$live_key.new"
+    [ -n "$om_cert" ] && apply_own_mode "$live_cert.new" "$om_cert"
+    [ -n "$om_key"  ] && apply_own_mode "$live_key.new"  "$om_key"
+    command -v restorecon >/dev/null 2>&1 && restorecon "$live_cert.new" "$live_key.new" 2>/dev/null || true
+    mv -f "$live_cert.new" "$live_cert"
+    mv -f "$live_key.new"  "$live_key"
+    # reload
+    if ! restart_slapd; then
+      log "slapd yeni cert ile baslamadi -> ROLLBACK"
+      restore_one "$live_cert" "$bak_cert"; restore_one "$live_key" "$bak_key"
+      restart_slapd || true
+      emit false "slapd yeni sertifika ile baslatilamadi; eski sertifikaya geri donuldu." "slapd_reloaded=false"
+      exit 1
+    fi
+    ngx_ok=true; reload_nginx || ngx_ok=false
+    [ "$SKIP_LIVE_VERIFY" = "1" ] || sleep 1   # nginx graceful reload otursun
+    want="$(fp_file "$SSL_DIR/server.pem")"
+    ldfp="$(fp_live_match "$LDAPS_ADDR" "$want")"; [ -z "$ldfp" ] && ldfp="$(fp_live_match "${LDAPS_ADDR%%:*}:389" "$want" ldap)"
+    htfp="$(fp_live_match "$HTTPS_ADDR" "$want")"
+    log "beklenen fp=$want canli ldaps=$ldfp https=$htfp nginx_ok=$ngx_ok"
+    emit true "Server sertifikasi aktive edildi." \
+      "slapd_reloaded=true" "nginx_reloaded=$ngx_ok" "ca_trust_updated=false" \
+      "ldaps_fingerprint=$(jstr "$ldfp")" "https_fingerprint=$(jstr "$htfp")"
+    exit 0
+    ;;
+  activate-ca)
+    cid="${2:-}"; need_uuid "$cid"
+    src_cert="$STAGING_DIR/$cid/cert.pem"
+    [ -f "$src_cert" ] || { emit false "Staging CA yok: $src_cert"; exit 3; }
+    validate_cert "$src_cert"
+    live_ca="$SSL_DIR/mtl-ca.pem"; om_ca="$(own_mode "$live_ca")"
+    bak_ca="$live_ca.bak-$TS"; cp -a "$live_ca" "$bak_ca" 2>/dev/null || true
+    install -m 0644 "$src_cert" "$live_ca.new"
+    [ -n "$om_ca" ] && apply_own_mode "$live_ca.new" "$om_ca"
+    command -v restorecon >/dev/null 2>&1 && restorecon "$live_ca.new" 2>/dev/null || true
+    mv -f "$live_ca.new" "$live_ca"
+    catrust=false
+    if cp -f "$live_ca" "$CA_ANCHOR" 2>/dev/null && command -v update-ca-trust >/dev/null 2>&1; then
+      update-ca-trust extract >/dev/null 2>&1 && catrust=true
+    fi
+    if ! restart_slapd; then
+      log "slapd yeni CA ile baslamadi -> ROLLBACK"
+      restore_one "$live_ca" "$bak_ca"; cp -f "$live_ca" "$CA_ANCHOR" 2>/dev/null || true
+      command -v update-ca-trust >/dev/null 2>&1 && update-ca-trust extract >/dev/null 2>&1 || true
+      restart_slapd || true
+      emit false "slapd yeni CA ile baslatilamadi; eski CA'ya geri donuldu." "slapd_reloaded=false"
+      exit 1
+    fi
+    ngx_ok=true; reload_nginx || ngx_ok=false
+    [ "$SKIP_LIVE_VERIFY" = "1" ] || sleep 1
+    emit true "CA sertifikasi aktive edildi." \
+      "slapd_reloaded=true" "nginx_reloaded=$ngx_ok" "ca_trust_updated=$catrust" \
+      "ldaps_fingerprint=$(jstr "$(fp_live_match "$LDAPS_ADDR" "")")" "https_fingerprint=$(jstr "$(fp_live_match "$HTTPS_ADDR" "")")"
+    exit 0
+    ;;
+  activate-bundle)
+    ca="${2:-}"; sv="${3:-}"; need_uuid "$ca"; need_uuid "$sv"
+    # CA'yi sonra server'i tek seferde uygula (basitlik icin alt-cagri)
+    "$0" activate-ca "$ca" >/dev/null 2>&1 || { emit false "Bundle: CA aktivasyonu basarisiz."; exit 1; }
+    exec "$0" activate-server "$sv"
+    ;;
+  *)
+    emit false "Gecersiz aksiyon: '$action' (activate-server|activate-ca|activate-bundle)"
+    exit 2
+    ;;
+esac

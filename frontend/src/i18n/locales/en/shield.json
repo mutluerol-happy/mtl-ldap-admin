@@ -1,0 +1,107 @@
+{
+  "title": "Certificates",
+  "subtitle": "TLS certificate management — CA, server certs, CSR and CA transition",
+  "tabs": {
+    "overview": "Overview",
+    "inventory": "Inventory",
+    "csr": "CSR"
+  },
+  "actions": {
+    "upload": "Upload Certificate",
+    "genCsr": "Generate CSR",
+    "transition": "CA Transition",
+    "exportCa": "Export CA"
+  },
+  "fields": {
+    "type": "Type",
+    "name": "Name",
+    "pem": "Certificate (PEM)",
+    "privateKey": "Private Key (PEM)",
+    "description": "Description",
+    "subject": "Subject",
+    "issuer": "Issuer",
+    "serial": "Serial",
+    "fingerprint": "Fingerprint (SHA256)",
+    "notBefore": "Not Before",
+    "notAfter": "Not After",
+    "source": "Source",
+    "status": "Status",
+    "commonName": "Common Name (CN)",
+    "organization": "Organization (O)",
+    "country": "Country (C)",
+    "sanDns": "DNS SAN (comma-sep)",
+    "sanIp": "IP SAN (comma-sep)",
+    "keyBits": "Key Size",
+    "created": "Created"
+  },
+  "badges": {
+    "active": "Active",
+    "inactive": "Inactive",
+    "expired": "Expired",
+    "hasKey": "Has Key",
+    "daysLeft": "{{d}} days"
+  },
+  "overview": {
+    "activeServer": "Active Server Certificate",
+    "activeCa": "Active CA",
+    "liveEndpoints": "Live Endpoints",
+    "match": "Match",
+    "mismatch": "Mismatch",
+    "none": "No record",
+    "caExported": "CA exported — write it to each slave's /etc/mtl/ssl/mtl-ca.pem."
+  },
+  "upload": {
+    "title": "Upload Certificate",
+    "subtitle": "CA needs only PEM; SERVER needs PEM + private key.",
+    "submit": "Upload",
+    "namePlaceholder": "e.g. corporate-server-2026",
+    "keyNote": "The private key is stored on disk with 0600; it is never written to the database.",
+    "success": "Certificate uploaded.",
+    "fillRequired": "Name and PEM are required.",
+    "serverNeedsKey": "A private key is required for a SERVER certificate."
+  },
+  "csr": {
+    "title": "Generate CSR",
+    "subtitle": "The private key is generated on the master and stays on disk; only the CSR is exported.",
+    "submit": "Generate",
+    "success": "CSR generated.",
+    "fillRequired": "Name and Common Name are required.",
+    "resultNote": "CSR created. Download it, get it signed by your corporate CA, then upload the returned certificate via 'Upload Certificate'.",
+    "download": "Download CSR",
+    "copied": "Copied to clipboard.",
+    "empty": "No CSR records.",
+    "resign": "Sign with MTL CA",
+    "resigned": "Signed with MTL CA — certificate added to inventory.",
+    "resultNote2": ""
+  },
+  "transition": {
+    "title": "CA Transition",
+    "subtitle": "Activate a new CA + server certificate atomically (together).",
+    "activate": "Activate Atomically",
+    "warning": "A CA change affects replication. Slave nodes cannot verify the master until the new CA is distributed. After activation, export the CA and copy it to every slave.",
+    "caCert": "New CA",
+    "serverCert": "New Server Certificate",
+    "choose": "choose",
+    "noCa": "No activatable CA. Upload the corporate CA first.",
+    "noServer": "No valid SERVER certificate with a key. Upload one first.",
+    "chainNote": "The server certificate must chain to the selected CA; otherwise activation is safely rejected (rollback).",
+    "selectBoth": "Select both a CA and a server certificate."
+  },
+  "detail": {
+    "title": "Certificate Detail",
+    "downloadPem": "Download PEM"
+  },
+  "inventory": {
+    "empty": "No certificates yet.",
+    "deleted": "Certificate deleted."
+  },
+  "activate": {
+    "title": "Activate Certificate",
+    "description": "'{{name}}' will be activated: the live file is swapped, slapd is restarted and nginx is reloaded. If verification fails, it is rolled back automatically.",
+    "confirm": "Activate"
+  },
+  "delete": {
+    "title": "Delete Certificate",
+    "description": "This certificate will be permanently removed from the inventory. Type its name to confirm."
+  }
+}

@@ -1,0 +1,266 @@
+/* ============================================================
+   MTL Console — Global CSS
+
+   Tema: Dark default · "Restrained Technical" estetik
+   Tipografi: JetBrains Mono (display/mono) + IBM Plex Sans (body)
+   Palet: GitHub-dark inspired + amber accent (MTL altın)
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =============================================================
+   1. CSS Değişkenleri — Tasarım Token'ları
+   ============================================================= */
+
+@layer base {
+  :root,
+  .dark {
+    /* arka plan katmanları */
+    --mtl-bg: 220 13% 9%;                /* #131720 — ana arka plan */
+    --mtl-bg-surface: 220 13% 12%;       /* #1a1f29 — kart yüzeyi */
+    --mtl-bg-elevated: 220 13% 15%;      /* #21262f — modal, hover */
+    --mtl-bg-inset: 220 13% 7%;          /* #0e1015 — input içi */
+
+    /* metin */
+    --mtl-fg: 220 12% 92%;               /* #e6e9ed — birincil metin */
+    --mtl-fg-muted: 220 8% 65%;          /* #9aa2b1 — ikincil */
+    --mtl-fg-subtle: 220 8% 50%;         /* #767e8d — üçüncü */
+    --mtl-fg-inverse: 220 13% 9%;        /* açık arka planlar için */
+
+    /* sınırlar */
+    --mtl-border: 220 10% 22%;           /* #30363d */
+    --mtl-ring: 38 92% 50%;              /* amber focus ring */
+
+    /* MTL amber — markalama */
+    --mtl-amber: 38 92% 50%;             /* #f0b30b — ana amber */
+    --mtl-amber-glow: 38 92% 60%;        /* #f5c43d — hover */
+
+    /* fonksiyonel */
+    --mtl-accent: 213 94% 60%;           /* #4493f8 — info, link */
+    --mtl-success: 142 71% 45%;          /* #22c55e */
+    --mtl-danger: 0 84% 60%;             /* #ef4444 */
+    --mtl-warning: 38 92% 50%;           /* amber'in tonlu kardeşi */
+  }
+
+  /* Light mode — opsiyonel, varsayılan dark */
+  .light {
+    --mtl-bg: 40 28% 93%;                /* sıcak kırık-beyaz sayfa zemini */
+    --mtl-bg-surface: 40 36% 98%;        /* kartlar — zeminden net ayrışır */
+    --mtl-bg-elevated: 40 30% 100%;      /* modal/hover — en üst kat */
+    --mtl-bg-inset: 40 22% 89%;          /* input/iç bölge — çökük */
+
+    --mtl-fg: 220 30% 12%;
+    --mtl-fg-muted: 220 14% 34%;
+    --mtl-fg-subtle: 220 10% 48%;
+    --mtl-fg-inverse: 40 30% 98%;
+
+    --mtl-border: 220 14% 76%;
+    --mtl-ring: 38 92% 45%;
+
+    --mtl-amber: 38 90% 42%;
+    --mtl-amber-glow: 38 90% 50%;
+
+    --mtl-accent: 213 90% 48%;
+    --mtl-success: 142 64% 36%;
+    --mtl-danger: 0 74% 48%;
+    --mtl-warning: 38 90% 42%;
+  }
+}
+
+/* =============================================================
+   2. Temel sıfırlamalar + body
+   ============================================================= */
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  body {
+    @apply bg-bg text-fg font-sans;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    background-image:
+      radial-gradient(
+        ellipse at top,
+        hsl(220 13% 14% / 0.5) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse at bottom right,
+        hsl(38 92% 50% / 0.04) 0%,
+        transparent 70%
+      );
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+
+  /* Light mode — koyu radial gradient sızmasın; sıcak/açık glow kullan */
+  .light body {
+    background-image:
+      radial-gradient(
+        ellipse at top,
+        hsl(40 30% 86% / 0.55) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse at bottom right,
+        hsl(38 92% 50% / 0.05) 0%,
+        transparent 70%
+      );
+  }
+
+  /* Türkçe karakterler için font sığasını koruma */
+  :lang(tr) {
+    word-break: keep-all;
+  }
+
+  /* Focus ring */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-amber/60 ring-offset-2 ring-offset-bg;
+  }
+
+  /* Seçim rengi */
+  ::selection {
+    background-color: hsl(var(--mtl-amber) / 0.3);
+    color: hsl(var(--mtl-fg));
+  }
+
+  /* Scrollbar — incelikli */
+  ::-webkit-scrollbar {
+    @apply w-2 h-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-bg-inset;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-sm;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-fg-subtle;
+  }
+}
+
+/* =============================================================
+   3. Tipografik bileşenler
+   ============================================================= */
+
+@layer components {
+  /* "Etiket" — küçük caps başlık (terminal stilinde) */
+  .text-label {
+    @apply font-mono text-xs uppercase tracking-wider-2 text-fg-muted;
+  }
+
+  /* "Anahtar" — değer ile birlikte, monospace */
+  .text-key {
+    @apply font-mono text-sm text-fg-muted;
+  }
+
+  /* "Değer" — vurgulu okunur */
+  .text-value {
+    @apply font-mono text-sm text-fg;
+  }
+
+  /* Başlık */
+  .h-display {
+    @apply font-display text-3xl font-bold tracking-tightest;
+  }
+
+  /* Code blok */
+  .code-inline {
+    @apply font-mono text-[0.9em] bg-bg-inset px-1.5 py-0.5 rounded-sm border border-border/60;
+  }
+
+  /* MTL marka — logo metinsel */
+  .mtl-mark {
+    @apply font-display font-bold tracking-wider-2 text-amber uppercase;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Status dot */
+  .status-dot {
+    @apply inline-block w-2 h-2 rounded-full;
+  }
+  .status-dot-online   { @apply bg-success; box-shadow: 0 0 6px hsl(var(--mtl-success) / 0.6); }
+  .status-dot-offline  { @apply bg-fg-subtle; }
+  .status-dot-warning  { @apply bg-warning; }
+  .status-dot-danger   { @apply bg-danger; box-shadow: 0 0 6px hsl(var(--mtl-danger) / 0.6); }
+
+  /* "Terminal" alanı dekorasyonu — login sayfasında kullanılacak */
+  .terminal-frame {
+    @apply relative overflow-hidden rounded-md border border-border bg-bg-surface;
+    box-shadow:
+      inset 0 1px 0 0 hsl(220 10% 25% / 0.5),
+      0 8px 32px -8px rgb(0 0 0 / 0.7);
+  }
+
+  .terminal-frame::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      hsl(38 92% 50% / 0.02) 50%,
+      transparent 100%
+    );
+    pointer-events: none;
+  }
+
+  /* Tarama çizgisi efekti */
+  .scan-line {
+    @apply absolute inset-x-0 h-px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      hsl(var(--mtl-amber) / 0.6),
+      transparent
+    );
+    animation: scan 4s linear infinite;
+  }
+}
+
+/* =============================================================
+   4. Yardımcı utility'ler
+   ============================================================= */
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Hafif dotted pattern */
+  .bg-dots {
+    background-image: radial-gradient(
+      hsl(var(--mtl-fg) / 0.04) 1px,
+      transparent 1px
+    );
+    background-size: 16px 16px;
+  }
+
+  /* Diagonal stripes — uyarı için */
+  .bg-stripes-warning {
+    background-image: repeating-linear-gradient(
+      135deg,
+      hsl(var(--mtl-warning) / 0.08) 0px,
+      hsl(var(--mtl-warning) / 0.08) 6px,
+      transparent 6px,
+      transparent 12px
+    );
+  }
+}

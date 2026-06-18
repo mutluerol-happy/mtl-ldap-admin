@@ -1,0 +1,41 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 Mutlu Erol
+
+from typing import Literal
+
+from fastapi import APIRouter
+from pydantic import BaseModel
+
+from app.api.deps import CurrentAdmin, DbSession
+from app.services import notification_service
+
+router = APIRouter(prefix="/notifications", tags=["notifications"])
+
+
+class TestRequest(BaseModel):
+    channel: Literal["slack", "teams", "webhook"]
+
+
+class TestResponse(BaseModel):
+    ok: bool
+    channel: str
+    status: int | None = None
+    error: str | None = None
+    body: str | None = None
+
+
+@router.post("/test", response_model=TestResponse, summary="Bir bildirim kanalına test mesajı gönder")
+async def test_notification_channel(
+    payload: TestRequest,
+    db: DbSession,
+    current: CurrentAdmin,
+) -> TestResponse:
+    """Slack/Teams/Webhook URL'ine 1 mesajlık ping gönderir."""
+    result = await notification_service.test_channel(payload.channel, db=db)
+    return TestResponse(
+        ok=bool(result.get("ok")),
+        channel=result.get("channel", payload.channel),
+        status=result.get("status"),
+        error=result.get("error"),
+        body=result.get("body"),
+    )

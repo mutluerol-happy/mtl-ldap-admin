@@ -1,0 +1,96 @@
+{
+  "app": {
+    "name": "MTL LDAP Admin",
+    "master": "Master",
+    "slave": "Slave"
+  },
+  "actions": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "search": "Search",
+    "refresh": "Refresh",
+    "back": "Back",
+    "next": "Next",
+    "close": "Close",
+    "yes": "Yes",
+    "no": "No",
+    "ok": "OK",
+    "submit": "Submit",
+    "confirm": "Confirm",
+    "remove": "Remove"
+  },
+  "labels": {
+    "loading": "Loading...",
+    "empty": "No records",
+    "error": "Error",
+    "success": "Success",
+    "username": "Username",
+    "password": "Password",
+    "email": "Email",
+    "phone": "Phone"
+  },
+  "language": {
+    "title": "Language",
+    "tr": "Turkish",
+    "en": "English"
+  },
+  "pagination": {
+    "records": "records",
+    "pageSize": "Page size",
+    "prevPage": "Previous page",
+    "nextPage": "Next page"
+  },
+  "loading": "Loading…",
+  "cancel": "Cancel",
+  "save": "Save",
+  "saving": "Saving…",
+  "submit": "Submit",
+  "submitting": "Submitting…",
+  "apply": "Apply",
+  "applying": "Applying…",
+  "yes": "Yes",
+  "no": "No",
+  "loadFailed": "Failed to load {{item}}",
+  "userActions": {
+    "activate": "Activate",
+    "disable": "Disable",
+    "resetPassword": "Reset password",
+    "unlock": "Unlock",
+    "resetMfa": "Reset MFA"
+  },
+  "queryStatus": {
+    "loadingMatching": "No matching users.",
+    "loadingPrompt": "Start typing to search."
+  },
+  "alertStatus": {
+    "open": "Open",
+    "acknowledged": "Acknowledged",
+    "resolved": "Resolved",
+    "suppressed": "Suppressed"
+  },
+  "queueStatus": {
+    "pending": "Pending",
+    "sent": "Sent",
+    "failed": "Failed",
+    "abandoned": "Abandoned"
+  },
+  "discrepancyType": {
+    "attributeMismatch": "Attribute Mismatch"
+  },
+  "typeToConfirm": "Type \"{{text}}\" to confirm",
+  "booleanActive": "Active",
+  "booleanInactive": "Inactive",
+  "minutesShort": "min",
+  "password": {
+    "lengthRange": "{{min}}-{{max}} characters",
+    "upper": "uppercase letter",
+    "lower": "lowercase letter",
+    "digit": "digit",
+    "special": "special character",
+    "policyHint": "{{min}} characters — {{hint}}.",
+    "policyHintRange": "{{min}}-{{max}} characters — {{hint}}."
+  }
+}

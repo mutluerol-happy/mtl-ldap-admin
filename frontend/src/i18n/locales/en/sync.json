@@ -1,0 +1,23 @@
+{
+  "title": "Synchronization",
+  "scan": {
+    "start": "Start scan",
+    "running": "Scanning…",
+    "never": "Never scanned"
+  },
+  "stats": {
+    "ldapUsers": "LDAP Users",
+    "dbUsers": "DB Users",
+    "inSync": "In sync",
+    "discrepancies": "Discrepancies"
+  },
+  "subtitle": "Tracks discrepancies between LDAP directory and database.",
+  "refresh": "Refresh",
+  "loading": "Loading…",
+  "lastScan": "Last scan:",
+  "unresolvedDiscrepancies": "Unresolved Discrepancies",
+  "allInSync": "All records in sync",
+  "noDiscrepancies": "No LDAP ↔ DB discrepancies.",
+  "ldapPrefix": "LDAP:",
+  "dbPrefix": "DB:"
+}

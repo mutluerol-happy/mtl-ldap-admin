@@ -1,0 +1,36 @@
+{
+  "welcome": "Welcome",
+  "lastLogin": "last login",
+  "stats": {
+    "events24h": "Events (24h)",
+    "successfulLogins": "Successful Logins",
+    "failedLogins": "Failed Logins",
+    "onlineNodes": "Online Nodes"
+  },
+  "cards": {
+    "cluster": "Cluster",
+    "topEventCodes": "Top Event Codes (24h)",
+    "recentEvents": "Recent Events",
+    "activeAlerts": "Active Alerts",
+    "securitySummary": "Security Summary",
+    "quickActions": "Quick Actions",
+    "all": "all →",
+    "noEvents": "No events",
+    "noActiveAlerts": "No active alerts 🎉",
+    "noData": "No data"
+  },
+  "security": {
+    "mfaEnrollment": "MFA Enrollment",
+    "failedLogin24h": "Failed Logins (24h)",
+    "lockedAdmins": "Locked Admins",
+    "inactiveAdmins": "Inactive Admins",
+    "ofAdmins": "{{enrolled}}/{{total}} admins"
+  },
+  "quickActions": {
+    "users": { "label": "Users", "hint": "Add new user" },
+    "groups": { "label": "Groups", "hint": "Group management" },
+    "admins": { "label": "Administrators", "hint": "Admins & roles" },
+    "audit": { "label": "Audit Logs", "hint": "Event history" }
+  },
+  "permRequired": "You need <0>{{perm}}</0> permission to see more content."
+}

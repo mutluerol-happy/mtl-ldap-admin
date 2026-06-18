@@ -1,0 +1,81 @@
+{
+  "title": "Alerts",
+  "filters": {
+    "allStatus": "All statuses",
+    "allSeverity": "All severity"
+  },
+  "status": {
+    "open": "Open",
+    "acknowledged": "Acknowledged",
+    "resolved": "Resolved",
+    "suppressed": "Suppressed"
+  },
+  "columns": {
+    "time": "Time",
+    "severity": "Severity",
+    "status": "Status",
+    "summary": "Summary",
+    "event": "Event"
+  },
+  "empty": {
+    "title": "No triggered alerts",
+    "description": "No alert events match these filters. System is calm."
+  },
+  "rule": {
+    "disable": "Disable",
+    "enable": "Enable",
+    "filterByRule": "Filter events of this rule",
+    "disabled": "disabled"
+  },
+  "detail": {
+    "back": "Back",
+    "eventCount": "Event count",
+    "windowStart": "Window start",
+    "windowEnd": "Window end",
+    "acknowledged": "Acknowledged",
+    "acknowledgedBy": "Acknowledged by",
+    "resolved": "Resolved",
+    "resolvedBy": "Resolved by",
+    "ackResolve": "Acknowledged / Resolved",
+    "resolveAction": "Resolve",
+    "resolveNoteLabel": "Resolution Note",
+    "matchingEvents": "Matching Events ({{count}})"
+  },
+  "rules": {
+    "title": "Alert Rules",
+    "activeCount": "{{count}} active",
+    "loading": "Loading…",
+    "empty": "No rules defined.",
+    "filterEvents": "Filter events",
+    "disabled": "disabled",
+    "minShort": "min",
+    "filterEventsTitle": "Filter this rule's events",
+    "eventsLoadError": "Failed to load alert events"
+  },
+  "subtitle": "Configured alert rules and triggered events.",
+  "refresh": "Refresh",
+  "resolve": {
+    "title": "Resolve Alert",
+    "description": "Root cause of this alert has been resolved; close the alert.",
+    "submit": "Resolve",
+    "submitting": "Resolving…",
+    "ack": "Acknowledge",
+    "acking": "Acknowledging…",
+    "ackTitle": "Acknowledge Alert",
+    "ackDescription": "Confirm that you've examined this alert.",
+    "ackNotePlaceholder": "Note why you're examining this alert…",
+    "resolveNote": "Resolution Note",
+    "resolveNotePlaceholder": "Document how you resolved the issue and the actions taken…",
+    "ackInfo": "Acknowledge transitions the alert from \"open → acknowledged\". It remains unresolved but documents team awareness.",
+    "resolveInfo": "Resolution note is required. The alert transitions to \"resolved\" and is logged in the audit trail."
+  },
+  "ruleEdit": {
+    "thresholdHint": "Trigger when this many events arrive within the window",
+    "windowHint": "Window to search threshold within",
+    "cooldownHint": "Minutes to suppress repeated triggers",
+    "descLabel": "Description",
+    "descPlaceholder": "When does this rule trigger, how is it interpreted…",
+    "channels": "Notification channels"
+  },
+  "triggeredEvents": "Triggered Events:"
+}

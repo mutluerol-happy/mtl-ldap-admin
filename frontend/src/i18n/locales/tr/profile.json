@@ -1,0 +1,35 @@
+{
+  "title": "Profilim",
+  "identity": {
+    "title": "Kimlik",
+    "active": "Aktif",
+    "inactive": "Pasif",
+    "username": "Kullanıcı Adı",
+    "email": "E-posta",
+    "displayName": "Görünen Ad",
+    "lastLogin": "Son Giriş",
+    "roles": "Roller",
+    "noRoles": "Atanmış rol yok",
+    "permissions": "İzinler ({{count}})",
+    "subtitle": "LDAP ve uygulama tabanında bulunan bilgiler."
+  },
+  "mfa": {
+    "title": "MFA",
+    "description": "İki faktörlü kimlik doğrulama",
+    "active": "Hesabın TOTP ile korunuyor",
+    "inactive": "Aktif Değil",
+    "disable_hint": "MFA'yı kapatmak için yöneticine başvur.",
+    "policy_recommended": "Politika gereği MFA önerilir",
+    "policy_hint": "MFA gerektiren bir rolün varsa, sonraki girişte otomatik kurulum açılır."
+  },
+  "password": {
+    "title": "Parola Değiştir",
+    "description": "Aktif oturum sonrasında yeni parolanla giriş yap.",
+    "current": "Mevcut Parola",
+    "new": "Yeni Parola",
+    "confirm": "Yeni Parola Tekrar",
+    "submit": "Parolayı Değiştir",
+    "success": "Parolan başarıyla güncellendi"
+  },
+  "subtitle": "Hesap bilgilerin, güvenlik ayarların ve oturum durumun."
+}

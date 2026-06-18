@@ -1,0 +1,41 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 Mutlu Erol
+[Unit]
+Description=MTL LDAP Slave Celery Worker (Password Reset OTP)
+Documentation=https://github.com/MutluErol/mtl-ldap-admin
+After=network-online.target redis.service postgresql-16.service mtl-ldap.service
+Wants=network-online.target
+Requires=redis.service postgresql-16.service
+
+[Service]
+Type=simple
+User=mtl
+Group=mtl
+WorkingDirectory=/opt/mtl/app
+EnvironmentFile=/etc/mtl/mtl-ldap.env
+
+ExecStart=/opt/mtl/venv/bin/celery -A app.worker.celery_app worker \
+    --loglevel=info \
+    --concurrency=2 \
+    --max-tasks-per-child=1000 \
+    --without-gossip \
+    --without-mingle
+
+ExecStop=/opt/mtl/venv/bin/celery -A app.worker.celery_app control shutdown
+
+KillMode=mixed
+KillSignal=SIGTERM
+TimeoutStopSec=60
+Restart=on-failure
+RestartSec=5
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/log/mtl /var/lib/mtl
+
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

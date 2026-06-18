@@ -1,0 +1,107 @@
+{
+  "title": "Sertifikalar",
+  "subtitle": "TLS sertifika yönetimi — CA, sunucu sertifikaları, CSR ve CA geçişi",
+  "tabs": {
+    "overview": "Genel Bakış",
+    "inventory": "Envanter",
+    "csr": "CSR"
+  },
+  "actions": {
+    "upload": "Sertifika Yükle",
+    "genCsr": "CSR Üret",
+    "transition": "CA Geçişi",
+    "exportCa": "CA'yı İndir"
+  },
+  "fields": {
+    "type": "Tip",
+    "name": "Ad",
+    "pem": "Sertifika (PEM)",
+    "privateKey": "Özel Anahtar (PEM)",
+    "description": "Açıklama",
+    "subject": "Subject",
+    "issuer": "Issuer",
+    "serial": "Seri No",
+    "fingerprint": "Parmak İzi (SHA256)",
+    "notBefore": "Geçerlilik Başı",
+    "notAfter": "Son Geçerlilik",
+    "source": "Kaynak",
+    "status": "Durum",
+    "commonName": "Common Name (CN)",
+    "organization": "Organizasyon (O)",
+    "country": "Ülke (C)",
+    "sanDns": "DNS SAN (virgülle)",
+    "sanIp": "IP SAN (virgülle)",
+    "keyBits": "Anahtar Uzunluğu",
+    "created": "Oluşturulma"
+  },
+  "badges": {
+    "active": "Aktif",
+    "inactive": "Pasif",
+    "expired": "Süresi Dolmuş",
+    "hasKey": "Anahtarlı",
+    "daysLeft": "{{d}} gün"
+  },
+  "overview": {
+    "activeServer": "Aktif Sunucu Sertifikası",
+    "activeCa": "Aktif CA",
+    "liveEndpoints": "Canlı Uç Noktalar",
+    "match": "Eşleşiyor",
+    "mismatch": "Uyuşmuyor",
+    "none": "Kayıt yok",
+    "caExported": "CA indirildi — her slave'in /etc/mtl/ssl/mtl-ca.pem dosyasına yazın."
+  },
+  "upload": {
+    "title": "Sertifika Yükle",
+    "subtitle": "CA için yalnızca PEM; SERVER için PEM + özel anahtar gerekir.",
+    "submit": "Yükle",
+    "namePlaceholder": "örn. corporate-server-2026",
+    "keyNote": "Özel anahtar diskte 600 izinle saklanır, veritabanına yazılmaz.",
+    "success": "Sertifika yüklendi.",
+    "fillRequired": "Ad ve PEM zorunlu.",
+    "serverNeedsKey": "SERVER sertifikası için özel anahtar gerekli."
+  },
+  "csr": {
+    "title": "CSR Üret",
+    "subtitle": "Özel anahtar master'da üretilir ve diskte kalır; yalnızca CSR dışa verilir.",
+    "submit": "Üret",
+    "success": "CSR üretildi.",
+    "fillRequired": "Ad ve Common Name zorunlu.",
+    "resultNote": "CSR oluşturuldu. İndirip kurumsal CA'ya imzalatın, sonra dönen sertifikayı 'Sertifika Yükle' ile yükleyin.",
+    "download": "CSR İndir",
+    "copied": "Panoya kopyalandı.",
+    "empty": "CSR kaydı yok.",
+    "resign": "MTL CA ile İmzala",
+    "resigned": "MTL CA ile imzalandı — sertifika envantere eklendi.",
+    "resultNote2": ""
+  },
+  "transition": {
+    "title": "CA Geçişi",
+    "subtitle": "Yeni CA + sunucu sertifikasını atomik (birlikte) aktive et.",
+    "activate": "Atomik Aktive Et",
+    "warning": "CA değişimi replikasyonu etkiler. Slave node'lar yeni CA dağıtılmadan master'ı doğrulayamaz. Aktivasyondan sonra CA'yı indirip her slave'e taşıyın.",
+    "caCert": "Yeni CA",
+    "serverCert": "Yeni Sunucu Sertifikası",
+    "choose": "seçin",
+    "noCa": "Aktive edilebilir CA yok. Önce kurumsal CA'yı yükleyin.",
+    "noServer": "Anahtarlı, geçerli SERVER sertifikası yok. Önce yükleyin.",
+    "chainNote": "Sunucu sertifikası seçilen CA'ya zincirlenmeli; aksi halde aktivasyon güvenle reddedilir (rollback).",
+    "selectBoth": "Hem CA hem sunucu sertifikası seçin."
+  },
+  "detail": {
+    "title": "Sertifika Detayı",
+    "downloadPem": "PEM İndir"
+  },
+  "inventory": {
+    "empty": "Henüz sertifika yok.",
+    "deleted": "Sertifika silindi."
+  },
+  "activate": {
+    "title": "Sertifikayı Aktive Et",
+    "description": "'{{name}}' aktive edilecek: canlı dosya değiştirilecek, slapd yeniden başlatılacak ve nginx reload edilecek. Doğrulama başarısız olursa otomatik geri alınır.",
+    "confirm": "Aktive Et"
+  },
+  "delete": {
+    "title": "Sertifikayı Sil",
+    "description": "Bu sertifika envanterden kalıcı olarak silinecek. Onaylamak için adını yazın."
+  }
+}

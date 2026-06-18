@@ -1,0 +1,33 @@
+{
+  "import": {
+    "titleGroups": "Toplu içe aktar — Gruplar",
+    "titleUsers": "Toplu içe aktar — Kullanıcılar",
+    "notSupportedTitle": "Grup toplu içe aktarımı henüz desteklenmiyor.",
+    "notSupportedHint": "Backend Tur 5 yalnızca kullanıcılar için bulk CSV endpoint'i sunuyor. Gruplar bireysel olarak oluşturulmalıdır.",
+    "csvUpload": "CSV Yükle",
+    "csvFormat": "Kullanıcılar için CSV: ",
+    "csvHeaderHint": "İlk satır başlık. Parolalar 12+ karakter olmalı.",
+    "selectCsv": "CSV dosyası seçin",
+    "orDrag": "veya sürükleyip bırakın",
+    "uploading": "Yükleniyor…",
+    "uploadAndStart": "Yükle ve başlat"
+  },
+  "job": {
+    "title": "Toplu içe aktarım işi",
+    "loadFailed": "İş yüklenemedi",
+    "records": "{{count}} kayıt",
+    "successCount": "Başarılı",
+    "failedCount": "Başarısız",
+    "queuedAt": "Kuyruğa alındı",
+    "startedAt": "Başladı",
+    "completedAt": "Tamamlandı",
+    "errorLog": "Hata kaydı",
+    "status": {
+      "running": "Çalışıyor",
+      "completed": "Tamamlandı",
+      "failed": "Başarısız",
+      "partial": "Kısmen tamamlandı",
+      "cancelled": "İptal edildi"
+    }
+  }
+}

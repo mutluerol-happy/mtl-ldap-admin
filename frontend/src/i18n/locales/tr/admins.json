@@ -1,0 +1,113 @@
+{
+  "title": "Yöneticiler",
+  "newAdmin": "Yeni admin",
+  "newAdminTitle": "Yeni Admin",
+  "columns": {
+    "user": "Kullanıcı",
+    "name": "Ad",
+    "roles": "Roller",
+    "status": "Durum",
+    "mfa": "MFA",
+    "lastLogin": "Son giriş"
+  },
+  "filters": {
+    "all": "Tüm durumlar",
+    "onlyActive": "Sadece aktif",
+    "onlyDisabled": "Sadece devre dışı"
+  },
+  "search": {
+    "placeholder": "Kullanıcı adı, ad veya e-postada ara…"
+  },
+  "empty": {
+    "title": "Henüz admin yok",
+    "description": "İlk admin'i (mevcut bootstrap'tan farklı) oluşturarak başlayın."
+  },
+  "delete": {
+    "title": "Admin'i sil",
+    "confirm": "Sil"
+  },
+  "detail": {
+    "back": "Geri",
+    "edit": "Düzenle",
+    "delete": "Sil",
+    "editTitle": "Admin'i Düzenle: {{username}}",
+    "rolesTitle": "Roller",
+    "newPasswordLabel": "Yeni parola",
+    "security": "Güvenlik",
+    "noRoles": "Bu admin'in atanmış rolü yok. (Yetki gerekiyorsa ekleyin.)"
+  },
+  "fields": {
+    "username": "Kullanıcı adı",
+    "displayName": "Görünen ad",
+    "email": "E-posta",
+    "ldapDn": "LDAP DN",
+    "createdAt": "Oluşturulma",
+    "updatedAt": "Güncellenme",
+    "mfa": "MFA",
+    "passwordResetFirstLogin": "İlk girişte parola değişimi",
+    "passwordChanged": "Son parola değişimi",
+    "failedLoginCount": "Başarısız giriş",
+    "lockedUntil": "Kilit bitiş",
+    "lastLogin": "Son giriş",
+    "mustChangePassword": "İlk girişte değiştir"
+  },
+  "mfaStatus": {
+    "enabled": "Etkin",
+    "disabled": "Devre dışı"
+  },
+  "subtitle": "Konsola giriş yetkili admin hesapları (DB-resident).",
+  "status": {
+    "active": "Aktif",
+    "disabled": "Devre dışı",
+    "locked": "Kilitli"
+  },
+  "form": {
+    "usernameRequired": "Kullanıcı adı zorunlu",
+    "usernameFormat": "3-64 karakter; küçük harfle başlar, harfle/rakamla biter; [a-z 0-9 . _ -]",
+    "displayNameRequired": "Görünen ad zorunlu",
+    "emailInvalid": "Geçerli bir e-posta girin",
+    "passwordsDontMatch": "Parolalar uyuşmuyor",
+    "rolesRequired": "En az bir rol seçilmeli",
+    "scratch": "Sıfırdan Yeni Admin",
+    "fromLdap": "Var Olan LDAP Kullanıcısından",
+    "ldapUser": "LDAP Kullanıcısı (ou=people)",
+    "loadingLdap": "Yükleniyor...",
+    "noLdapUsers": "(uygun kullanıcı yok)",
+    "selectPlaceholder": "— Seçin —",
+    "ldapHint": "Seçilince kullanıcı adı / görünen ad / e-posta otomatik dolar.",
+    "ldapHint2": "LDAP'te yeni entry oluşturulmaz.",
+    "identity": "Kimlik",
+    "username": "Kullanıcı adı",
+    "usernameLocked": "Değiştirilemez.",
+    "usernamePlaceholder": "ornek.admin",
+    "displayName": "Görünen ad",
+    "email": "E-posta",
+    "initialPassword": "İlk Parola",
+    "password": "Parola",
+    "passwordConfirm": "Parola (tekrar)",
+    "mustChangeOnFirstLogin": "Yeni admin ilk girişte parolasını değiştirsin",
+    "alsoCreateInLdap": "LDAP'te de oluştur (uid=<username>,ou=admins,...)",
+    "roles": "Roller",
+    "permissions": "yetki",
+    "mfaRequired": "MFA gerek",
+    "system": "sistem",
+    "statusSecurity": "Durum & Güvenlik",
+    "mustChangeNextLogin": "Bir sonraki girişte parolasını değiştirsin",
+    "editRolesNote": "Rolleri Detay sayfasındaki \"Roller\" bölümünden yönetin.",
+    "editActionsNote": "Parola sıfırlamak ve MFA reset için aksiyon butonlarını kullanın.",
+    "saving": "Kaydediliyor…",
+    "create": "Oluştur",
+    "save": "Kaydet",
+    "passwordRequired": "Parola zorunlu",
+    "passwordPolicy": "Parola en az {{min}} karakter olmalı",
+    "emailRequired": "E-posta zorunlu",
+    "source": "Kaynak",
+    "passwordHint": "En az {{min}}-{{max}} karakter",
+    "consolePasswordHint": "Bu, yönetim konsolu giriş parolasıdır (kullanıcının LDAP parolasından ayrıdır).",
+    "ldapAuthNote": "Bu kullanıcı yönetim konsoluna kendi LDAP parolasıyla giriş yapar; ayrı bir konsol parolası gerekmez."
+  },
+  "noRolesFound": "Rol bulunamadı.",
+  "assigned": "atanmış",
+  "assign": "Ata",
+  "assigning": "Atanıyor…"
+}

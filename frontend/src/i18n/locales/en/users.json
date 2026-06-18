@@ -1,0 +1,114 @@
+{
+  "title": "Users",
+  "newUser": "New user",
+  "newUserTitle": "New User",
+  "columns": {
+    "uid": "UID",
+    "name": "Name",
+    "email": "Email",
+    "status": "Status",
+    "mfa": "MFA",
+    "lastLogin": "Last login"
+  },
+  "status": {
+    "active": "Active",
+    "disabled": "Disabled",
+    "locked": "Locked"
+  },
+  "search": {
+    "placeholder": "UID, name or email…"
+  },
+  "empty": {
+    "title": "No users yet",
+    "description": "Create a new user or bulk import via CSV."
+  },
+  "delete": {
+    "title": "Delete user",
+    "confirm": "Delete"
+  },
+  "reset": {
+    "title": "Reset password: {{uid}}",
+    "titleGeneric": "Reset password",
+    "submit": "Reset",
+    "submitting": "Resetting…",
+    "newPasswordLabel": "New password",
+    "policyHint": "New password must be at least {{min}} characters; {{hint}}"
+  },
+  "detail": {
+    "back": "Back",
+    "edit": "Edit",
+    "delete": "Delete",
+    "editTitle": "Edit user: {{uid}}",
+    "security": "Security",
+    "identity": "Identity & Contact",
+    "membershipsTitle": "Group memberships"
+  },
+  "fields": {
+    "uid": "UID",
+    "cn": "CN",
+    "sn": "Surname (sn)",
+    "givenName": "Given name",
+    "displayName": "Display name",
+    "preferredLanguage": "Preferred language",
+    "email": "Email",
+    "phone": "Phone",
+    "title": "Title",
+    "department": "Department",
+    "mfa": "MFA",
+    "mfaEnrolled": "MFA enrolled at",
+    "passwordChanged": "Last password change",
+    "passwordExpires": "Password expires",
+    "mustChangePassword": "Change on first login",
+    "failedLoginCount": "Failed logins",
+    "lockedUntil": "Locked until",
+    "lastLogin": "Last login",
+    "lastLoginIp": "Last login IP"
+  },
+  "mfaStatus": {
+    "enabled": "Enabled",
+    "disabled": "Disabled"
+  },
+  "subtitle": "All end-user accounts in the LDAP directory.",
+  "bulkImport": "Bulk import",
+  "form": {
+    "uidHint": "UID must start with lowercase; 3-64 chars; only lowercase, digits and . _ -",
+    "cnRequired": "CN (Full display name) is required.",
+    "emailInvalid": "Enter a valid email.",
+    "passwordPolicy": "Password must be at least {{min}} characters.",
+    "passwordsDontMatch": "Passwords don't match.",
+    "uidLocked": "UID cannot be changed.",
+    "cn": "CN (display name)",
+    "cnHint": "LDAP cn — e.g. 'John Doe'",
+    "displayName": "Display name",
+    "contact": "Contact",
+    "phone": "Phone",
+    "title": "Title",
+    "department": "Department",
+    "initialPassword": "Initial Password",
+    "mustChangeOnFirstLogin": "User must change password on first login",
+    "identity": "Identity",
+    "uid": "UID",
+    "uidPlaceholder": "e.g. john.doe",
+    "sn": "Surname (sn)",
+    "snRequired": "Surname is required.",
+    "givenName": "First name (given name)",
+    "preferredLanguage": "Preferred language",
+    "email": "Email",
+    "organization": "Organization",
+    "password": "Password",
+    "passwordConfirm": "Password (repeat)",
+    "status": "Status",
+    "uidRequired": "UID is required.",
+    "passwordRequired": "Password is required.",
+    "saving": "Saving…",
+    "create": "Create",
+    "save": "Save"
+  },
+  "passwordReset": {
+    "title": "Reset password: {{name}}",
+    "button": "Reset",
+    "submitting": "Resetting…",
+    "forceChange": "User must change password on next sign-in"
+  },
+  "loadError": "Failed to load user"
+}

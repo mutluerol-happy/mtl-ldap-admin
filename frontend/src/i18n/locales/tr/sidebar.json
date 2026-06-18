@@ -1,0 +1,26 @@
+{
+  "groups": {
+    "general": "GENEL",
+    "directory": "DİZİN",
+    "authorization": "YETKİLENDİRME",
+    "observation": "GÖZLEM",
+    "system": "SİSTEM"
+  },
+  "items": {
+    "dashboard": "Panel",
+    "profile": "Profilim",
+    "users": "Kullanıcılar",
+    "groups": "Gruplar",
+    "admins": "Yöneticiler",
+    "roles": "Roller",
+    "audit": "Audit Kayıtları",
+    "alerts": "Alarmlar",
+    "cluster": "Cluster",
+    "sync": "Senkronizasyon",
+    "settings": "Ayarlar",
+    "shield": "Sertifikalar"
+  },
+  "footer": {
+    "console": "KONSOL"
+  }
+}

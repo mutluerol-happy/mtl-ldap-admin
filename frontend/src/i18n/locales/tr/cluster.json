@@ -1,0 +1,85 @@
+{
+  "title": "Cluster",
+  "refresh": "Yenile",
+  "stats": {
+    "totalNodes": "Toplam Düğüm",
+    "online": "Online",
+    "offlineDegraded": "Offline / Degraded",
+    "queuePending": "Kuyrukta Bekleyen"
+  },
+  "info": {
+    "masterNode": "Master Düğüm",
+    "lastSync": "Son Senkron",
+    "queueFailed": "Kuyruk Failed",
+    "never": "Hiç",
+    "title": "Cluster Bilgisi"
+  },
+  "fields": {
+    "hostname": "Hostname",
+    "baseUrl": "Base URL",
+    "version": "Versiyon",
+    "registered": "Kaydedildi",
+    "lastHeartbeat": "Son Heartbeat",
+    "lastSync": "Son Senkron"
+  },
+  "queue": {
+    "allStatus": "Tüm durumlar",
+    "empty": "Kuyrukta kayıt yok.",
+    "entered": "Kuyruğa girdi:"
+  },
+  "subtitle": "Master—Slave düğüm sağlığı ve veri senkronizasyon kuyruğu.",
+  "tabs": {
+    "overview": "Özet",
+    "nodes": "Düğümler",
+    "queue": "Sync Kuyruğu",
+    "sync": "Senkron Durumu"
+  },
+  "health": {
+    "title": "Cluster Sağlık Uyarısı",
+    "queueFailedMessage": "{{count}} kuyrukta hata var — Sync Kuyruğu sekmesine bakın"
+  },
+  "loadError": "Cluster durumu yüklenemedi",
+  "nodeForm": {
+    "addButton": "Node Ekle",
+    "title": "Yeni Cluster Düğümü",
+    "nodeId": "Düğüm ID",
+    "nodeType": "Düğüm Tipi",
+    "hostname": "Hostname",
+    "baseUrl": "Base URL",
+    "submit": "Ekle",
+    "fillAll": "Tüm zorunlu alanları doldurun",
+    "added": "{{node}} eklendi",
+    "deleted": "{{node}} silindi",
+    "deleteTitle": "Düğümü sil",
+    "confirmDelete": "{{node}} düğümünü silmek istediğinize emin misiniz?",
+    "cannotDeleteMaster": "Master düğüm silinemez"
+  },
+  "syncState": {
+    "subtitle": "Her düğümün LDAP contextCSN değeri master ile karşılaştırılır.",
+    "masterCsn": "Master contextCSN",
+    "checkedAt": "Kontrol:",
+    "inSync": "Senkron",
+    "lagging": "Geride",
+    "unreachable": "Erişilemez",
+    "master": "Master"
+  },
+  "provision": {
+    "title": "Yeni Consumer Provision",
+    "resultTitle": "Kurulum Komutu Hazır",
+    "resultIntro": "{{node}} kaydedildi. Aşağıdaki komutu YENİ sunucuda root olarak çalıştırın:",
+    "commandLabel": "Tek-paste kurulum komutu",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı",
+    "copyFailed": "Panoya kopyalanamadı",
+    "step1": "Komutu yeni consumer sunucusunda çalıştırın — OpenLDAP read-only replikasyonu otomatik kurulur.",
+    "step2": "Bittiğinde node kendini kaydeder ve burada 'online' görünür.",
+    "expires": "Komut {{time}} tarihine kadar geçerli (tek kullanımlık).",
+    "securityNote": "Komut sertifika + replikasyon parolasını içerir; güvenli iletin, paylaşmayın.",
+    "done": "Tamam",
+    "ip": "IP Adresi",
+    "replicatorPassword": "Replicator Parolası",
+    "replicatorHint": "Master'da /root/mtl-secrets.txt içinde",
+    "formNote": "Yeni sunucu saf OpenLDAP consumer (read-only yedek) olarak kurulur. Replikasyon parolası master'dan otomatik alınır; cert üretilir ve tek-kullanımlık kurulum komutu döndürülür.",
+    "submit": "Provision Et"
+  }
+}

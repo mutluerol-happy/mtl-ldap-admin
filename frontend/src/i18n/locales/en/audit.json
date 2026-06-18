@@ -1,0 +1,55 @@
+{
+  "title": "Audit Logs",
+  "columns": {
+    "time": "Time",
+    "severity": "Severity",
+    "category": "Category",
+    "eventCode": "Event Code",
+    "actor": "Actor",
+    "target": "Target",
+    "ip": "IP",
+    "serverNode": "Node"
+  },
+  "empty": {
+    "title": "No records found",
+    "description": "Try changing filters or clear all filters."
+  },
+  "detail": {
+    "back": "Back",
+    "copy": "Copy details",
+    "actor": {
+      "type": "Type",
+      "id": "ID",
+      "displayName": "Display Name",
+      "ip": "IP",
+      "userAgent": "User Agent"
+    },
+    "target": {
+      "type": "Type",
+      "id": "ID",
+      "displayName": "Display Name",
+      "requestId": "Request ID"
+    }
+  },
+  "subtitle": "Records of all security and administration events.",
+  "refresh": "Refresh",
+  "summary": {
+    "totalEvents": "Total Events",
+    "successLogin": "Successful Login",
+    "failedLogin": "Failed Login",
+    "highImportance": "High Importance",
+    "last24h": "Last 24 hours",
+    "severityDistribution": "Severity Distribution:",
+    "topEvents": "Top Events (Top {{count}})"
+  },
+  "filters": {
+    "serverNode": "Server Node",
+    "actor": "Actor (username)",
+    "actorPlaceholder": "e.g. happy",
+    "ipPlaceholder": "e.g. 192.0.2.10",
+    "dateStart": "Date (start)",
+    "dateEnd": "Date (end)",
+    "general": "Filters",
+    "searchPlaceholder": "General search (actor / target / IP / event_code)…"
+  }
+}

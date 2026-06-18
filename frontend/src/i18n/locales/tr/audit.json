@@ -1,0 +1,55 @@
+{
+  "title": "Audit Kayıtları",
+  "columns": {
+    "time": "Zaman",
+    "severity": "Severity",
+    "category": "Kategori",
+    "eventCode": "Olay Kodu",
+    "actor": "Aktör",
+    "target": "Hedef",
+    "ip": "IP",
+    "serverNode": "Düğüm"
+  },
+  "empty": {
+    "title": "Kayıt bulunamadı",
+    "description": "Filtreleri değiştirerek tekrar deneyin veya tüm filtreleri temizleyin."
+  },
+  "detail": {
+    "back": "Geri",
+    "copy": "Detayları kopyala",
+    "actor": {
+      "type": "Tür",
+      "id": "ID",
+      "displayName": "Görünen Ad",
+      "ip": "IP",
+      "userAgent": "User Agent"
+    },
+    "target": {
+      "type": "Tür",
+      "id": "ID",
+      "displayName": "Görünen Ad",
+      "requestId": "Request ID"
+    }
+  },
+  "subtitle": "Sistemde gerçekleşen tüm güvenlik ve yönetim olaylarının kayıtları.",
+  "refresh": "Yenile",
+  "summary": {
+    "totalEvents": "Toplam Olay",
+    "successLogin": "Başarılı Giriş",
+    "failedLogin": "Başarısız Giriş",
+    "highImportance": "Yüksek Önemli",
+    "last24h": "Son 24 saat",
+    "severityDistribution": "Severity Dağılımı:",
+    "topEvents": "En Sık Olaylar (Top {{count}})"
+  },
+  "filters": {
+    "serverNode": "Sunucu Düğümü",
+    "actor": "Aktör (username)",
+    "actorPlaceholder": "örn. happy",
+    "ipPlaceholder": "örn. 192.0.2.10",
+    "dateStart": "Tarih (başlangıç)",
+    "dateEnd": "Tarih (bitiş)",
+    "general": "Filtreler",
+    "searchPlaceholder": "Genel arama (actor / target / IP / event_code)…"
+  }
+}

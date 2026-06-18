@@ -1,0 +1,10 @@
+{
+  "title": "Roles",
+  "detail": {
+    "back": "Back"
+  },
+  "subtitle": "System-defined authorization roles. Assign them to admins.",
+  "system": "system",
+  "permissions": "permissions",
+  "loadError": "Failed to load roles"
+}

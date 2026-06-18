@@ -1,0 +1,10 @@
+{
+  "title": "Roller",
+  "detail": {
+    "back": "Geri"
+  },
+  "subtitle": "Sistemde tanımlı yetki rolleri. Admin'lere atayarak yetkilendirme yapın.",
+  "system": "sistem",
+  "permissions": "yetki",
+  "loadError": "Roller yüklenemedi"
+}

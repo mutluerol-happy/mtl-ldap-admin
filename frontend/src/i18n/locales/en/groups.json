@@ -1,0 +1,45 @@
+{
+  "title": "Groups",
+  "newGroup": "New group",
+  "newGroupDialog": "New Group",
+  "search": {
+    "placeholder": "Search by CN or description…"
+  },
+  "delete": {
+    "title": "Delete group",
+    "confirm": "Delete"
+  },
+  "detail": {
+    "back": "Back",
+    "edit": "Edit",
+    "delete": "Delete",
+    "members": "Members",
+    "editTitle": "Edit group: {{cn}}",
+    "removeMemberTitle": "Remove member from group",
+    "memberCount": "Member count",
+    "addMember": "Add member",
+    "noMembers": "This group has no members yet."
+  },
+  "subtitle": "LDAP groups (groupOfNames / posixGroup).",
+  "columns": {
+    "cn": "CN",
+    "description": "Description",
+    "type": "Type",
+    "members": "Members"
+  },
+  "form": {
+    "memberDnDesc": "Members by DN (LDAP standard, modern)",
+    "memberUidDesc": "Members by uid string (POSIX/NIS)",
+    "cnRule": "CN 3-64 chars; starts with letter; letters/digits/./_/-/space allowed.",
+    "descLimit": "Description can be at most 512 characters.",
+    "cnLocked": "CN cannot be changed.",
+    "description": "Description",
+    "saving": "Saving…",
+    "create": "Create",
+    "groupType": "Group Type"
+  },
+  "empty": {
+    "title": "No groups yet",
+    "description": "Get started by creating your first group."
+  }
+}

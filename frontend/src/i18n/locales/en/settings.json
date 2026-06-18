@@ -1,0 +1,55 @@
+{
+  "title": "System Settings",
+  "subtitle": "Password policy, MFA, audit retention, SMTP and email templates.",
+  "refresh": "Refresh",
+  "loadError": "Failed to load settings",
+  "systemInfo": {
+    "title": "System Info",
+    "fields": {
+      "version": "Version",
+      "profile": "Profile",
+      "nodeId": "Node ID",
+      "python": "Python",
+      "fastapi": "FastAPI",
+      "postgresql": "PostgreSQL",
+      "redis": "Redis",
+      "ldapUri": "LDAP URI",
+      "ldapBaseDn": "LDAP Base DN"
+    }
+  },
+  "categories": {
+    "password_policy": {
+      "title": "Password Policy",
+      "description": "Requirements for user and admin passwords."
+    },
+    "mfa_policy": {
+      "title": "MFA Policy",
+      "description": "Two-factor authentication requirements and timing."
+    },
+    "audit_retention": {
+      "title": "Audit Retention",
+      "description": "How long event records are kept."
+    },
+    "smtp": {
+      "title": "SMTP",
+      "description": "Outbound email server configuration."
+    },
+    "email_templates": {
+      "title": "Email Templates",
+      "description": "Content templates for notification emails."
+    },
+    "sms": {
+      "title": "SMS",
+      "description": "SMS provider configuration."
+    },
+    "notifications": {
+      "title": "Notifications",
+      "description": "Notification channels and filters."
+    },
+    "password_reset": {
+      "title": "Password Reset",
+      "description": "Self-service password reset behavior."
+    }
+  },
+  "serviceStatus": "Service Status"
+}

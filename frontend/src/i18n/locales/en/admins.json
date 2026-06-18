@@ -1,0 +1,113 @@
+{
+  "title": "Administrators",
+  "newAdmin": "New admin",
+  "newAdminTitle": "New Administrator",
+  "columns": {
+    "user": "User",
+    "name": "Name",
+    "roles": "Roles",
+    "status": "Status",
+    "mfa": "MFA",
+    "lastLogin": "Last login"
+  },
+  "filters": {
+    "all": "All statuses",
+    "onlyActive": "Active only",
+    "onlyDisabled": "Disabled only"
+  },
+  "search": {
+    "placeholder": "Search by username, name or email…"
+  },
+  "empty": {
+    "title": "No admins yet",
+    "description": "Get started by creating your first admin (different from the bootstrap)."
+  },
+  "delete": {
+    "title": "Delete admin",
+    "confirm": "Delete"
+  },
+  "detail": {
+    "back": "Back",
+    "edit": "Edit",
+    "delete": "Delete",
+    "editTitle": "Edit admin: {{username}}",
+    "rolesTitle": "Roles",
+    "newPasswordLabel": "New password",
+    "security": "Security",
+    "noRoles": "This admin has no roles assigned. (Add roles if permissions needed.)"
+  },
+  "fields": {
+    "username": "Username",
+    "displayName": "Display name",
+    "email": "Email",
+    "ldapDn": "LDAP DN",
+    "createdAt": "Created at",
+    "updatedAt": "Updated at",
+    "mfa": "MFA",
+    "passwordResetFirstLogin": "Reset password on first login",
+    "passwordChanged": "Last password change",
+    "failedLoginCount": "Failed logins",
+    "lockedUntil": "Locked until",
+    "lastLogin": "Last login",
+    "mustChangePassword": "Change on first login"
+  },
+  "mfaStatus": {
+    "enabled": "Enabled",
+    "disabled": "Disabled"
+  },
+  "subtitle": "Console admin accounts (DB-resident).",
+  "status": {
+    "active": "Active",
+    "disabled": "Disabled",
+    "locked": "Locked"
+  },
+  "form": {
+    "usernameRequired": "Username is required",
+    "usernameFormat": "3-64 chars; starts with lowercase, ends with alphanumeric; [a-z 0-9 . _ -]",
+    "displayNameRequired": "Display name is required",
+    "emailInvalid": "Enter a valid email",
+    "passwordsDontMatch": "Passwords don't match",
+    "rolesRequired": "At least one role required",
+    "scratch": "New Admin From Scratch",
+    "fromLdap": "From Existing LDAP User",
+    "ldapUser": "LDAP User (ou=people)",
+    "loadingLdap": "Loading...",
+    "noLdapUsers": "(no suitable users)",
+    "selectPlaceholder": "— Select —",
+    "ldapHint": "When selected, username / display name / email are auto-filled.",
+    "ldapHint2": "No new entry is created in LDAP.",
+    "identity": "Identity",
+    "username": "Username",
+    "usernameLocked": "Cannot be changed.",
+    "usernamePlaceholder": "e.g. admin.user",
+    "displayName": "Display name",
+    "email": "Email",
+    "initialPassword": "Initial Password",
+    "password": "Password",
+    "passwordConfirm": "Password (repeat)",
+    "mustChangeOnFirstLogin": "New admin must change password on first login",
+    "alsoCreateInLdap": "Also create in LDAP (uid=<username>,ou=admins,...)",
+    "roles": "Roles",
+    "permissions": "perms",
+    "mfaRequired": "MFA required",
+    "system": "system",
+    "statusSecurity": "Status & Security",
+    "mustChangeNextLogin": "Change password on next login",
+    "editRolesNote": "Manage roles from the \"Roles\" section on the Detail page.",
+    "editActionsNote": "Use the action buttons to reset password and MFA.",
+    "saving": "Saving…",
+    "create": "Create",
+    "save": "Save",
+    "passwordRequired": "Password is required.",
+    "passwordPolicy": "Password must be at least {{min}} characters.",
+    "emailRequired": "Email is required.",
+    "source": "Source",
+    "passwordHint": "At least {{min}}-{{max}} characters",
+    "consolePasswordHint": "This is the admin console login password (separate from the user's LDAP password).",
+    "ldapAuthNote": "This user signs in to the admin console with their own LDAP password; no separate console password is needed."
+  },
+  "noRolesFound": "No roles found.",
+  "assigned": "assigned",
+  "assign": "Assign",
+  "assigning": "Assigning…"
+}

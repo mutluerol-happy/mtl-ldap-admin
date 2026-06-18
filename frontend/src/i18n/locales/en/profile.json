@@ -1,0 +1,35 @@
+{
+  "title": "My Profile",
+  "identity": {
+    "title": "Identity",
+    "active": "Active",
+    "inactive": "Inactive",
+    "username": "Username",
+    "email": "Email",
+    "displayName": "Display Name",
+    "lastLogin": "Last Login",
+    "roles": "Roles",
+    "noRoles": "No roles assigned",
+    "permissions": "Permissions ({{count}})",
+    "subtitle": "Information from LDAP and the application database."
+  },
+  "mfa": {
+    "title": "MFA",
+    "description": "Two-factor authentication",
+    "active": "Your account is protected by TOTP",
+    "inactive": "Inactive",
+    "disable_hint": "Contact your administrator to disable MFA.",
+    "policy_recommended": "MFA recommended by policy",
+    "policy_hint": "If you have a role that requires MFA, setup will open automatically on next sign-in."
+  },
+  "password": {
+    "title": "Change Password",
+    "description": "Sign in with your new password after the current session.",
+    "current": "Current Password",
+    "new": "New Password",
+    "confirm": "Confirm New Password",
+    "submit": "Change Password",
+    "success": "Your password has been updated"
+  },
+  "subtitle": "Your account info, security settings and session status."
+}

@@ -1,0 +1,33 @@
+{
+  "import": {
+    "titleGroups": "Bulk Import — Groups",
+    "titleUsers": "Bulk Import — Users",
+    "notSupportedTitle": "Group bulk import is not yet supported.",
+    "notSupportedHint": "Backend Tur 5 only provides bulk CSV endpoint for users. Groups must be created individually.",
+    "csvUpload": "Upload CSV",
+    "csvFormat": "CSV for users: ",
+    "csvHeaderHint": "First row is header. Passwords must be 12+ characters.",
+    "selectCsv": "Select CSV file",
+    "orDrag": "or drag and drop",
+    "uploading": "Uploading…",
+    "uploadAndStart": "Upload and start"
+  },
+  "job": {
+    "title": "Bulk import job",
+    "loadFailed": "Failed to load job",
+    "records": "{{count}} records",
+    "successCount": "Successful",
+    "failedCount": "Failed",
+    "queuedAt": "Queued at",
+    "startedAt": "Started at",
+    "completedAt": "Completed at",
+    "errorLog": "Error log",
+    "status": {
+      "running": "Running",
+      "completed": "Completed",
+      "failed": "Failed",
+      "partial": "Partial",
+      "cancelled": "Cancelled"
+    }
+  }
+}

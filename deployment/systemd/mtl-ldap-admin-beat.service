@@ -1,0 +1,36 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 Mutlu Erol
+[Unit]
+Description=MTL LDAP Admin Celery Beat (Scheduled Tasks)
+Documentation=https://github.com/MutluErol/mtl-ldap-admin
+After=network-online.target redis.service mtl-ldap-admin-worker.service
+Wants=network-online.target
+Requires=redis.service
+
+[Service]
+Type=simple
+User=mtl
+Group=mtl
+WorkingDirectory=/opt/mtl/app
+EnvironmentFile=/etc/mtl/mtl-ldap-admin.env
+
+ExecStart=/opt/mtl/venv/bin/celery -A app.worker.celery_app beat \
+    --loglevel=info \
+    --schedule=/var/lib/mtl/celerybeat-schedule
+
+KillMode=mixed
+KillSignal=SIGTERM
+TimeoutStopSec=30
+Restart=on-failure
+RestartSec=5
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/log/mtl /var/lib/mtl
+
+LimitNOFILE=4096
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,26 @@
+{
+  "groups": {
+    "general": "GENERAL",
+    "directory": "DIRECTORY",
+    "authorization": "AUTHORIZATION",
+    "observation": "OBSERVATION",
+    "system": "SYSTEM"
+  },
+  "items": {
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "users": "Users",
+    "groups": "Groups",
+    "admins": "Administrators",
+    "roles": "Roles",
+    "audit": "Audit Logs",
+    "alerts": "Alerts",
+    "cluster": "Cluster",
+    "sync": "Synchronization",
+    "settings": "Settings",
+    "shield": "Certificates"
+  },
+  "footer": {
+    "console": "CONSOLE"
+  }
+}

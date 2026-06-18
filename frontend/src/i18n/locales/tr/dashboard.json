@@ -1,0 +1,36 @@
+{
+  "welcome": "Hoş geldin",
+  "lastLogin": "son giriş",
+  "stats": {
+    "events24h": "24 Saatlik Olay",
+    "successfulLogins": "Başarılı Giriş",
+    "failedLogins": "Başarısız Giriş",
+    "onlineNodes": "Online Node"
+  },
+  "cards": {
+    "cluster": "Cluster",
+    "topEventCodes": "En Sık Olay Kodları (24sa)",
+    "recentEvents": "Son Olaylar",
+    "activeAlerts": "Aktif Alarmlar",
+    "securitySummary": "Güvenlik Özeti",
+    "quickActions": "Hızlı Eylemler",
+    "all": "tümü →",
+    "noEvents": "Olay yok",
+    "noActiveAlerts": "Aktif alarm yok 🎉",
+    "noData": "Veri yok"
+  },
+  "security": {
+    "mfaEnrollment": "MFA Enrollment",
+    "failedLogin24h": "Başarısız Giriş (24sa)",
+    "lockedAdmins": "Kilitli Admin",
+    "inactiveAdmins": "Devre Dışı Admin",
+    "ofAdmins": "{{enrolled}}/{{total}} admin"
+  },
+  "quickActions": {
+    "users": { "label": "Kullanıcılar", "hint": "Yeni kullanıcı ekle" },
+    "groups": { "label": "Gruplar", "hint": "Grup yönetimi" },
+    "admins": { "label": "Yöneticiler", "hint": "Admin & roller" },
+    "audit": { "label": "Audit Kayıtları", "hint": "Olay geçmişi" }
+  },
+  "permRequired": "Daha fazla içeriği görmek için <0>{{perm}}</0> yetkisi gerekiyor."
+}

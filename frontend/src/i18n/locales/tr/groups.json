@@ -1,0 +1,45 @@
+{
+  "title": "Gruplar",
+  "newGroup": "Yeni grup",
+  "newGroupDialog": "Yeni Grup",
+  "search": {
+    "placeholder": "CN veya açıklamada ara…"
+  },
+  "delete": {
+    "title": "Grubu sil",
+    "confirm": "Sil"
+  },
+  "detail": {
+    "back": "Geri",
+    "edit": "Düzenle",
+    "delete": "Sil",
+    "members": "Üyeler",
+    "editTitle": "Grubu Düzenle: {{cn}}",
+    "removeMemberTitle": "Üyeyi gruptan çıkar",
+    "memberCount": "Üye sayısı",
+    "addMember": "Üye ekle",
+    "noMembers": "Bu grup henüz üye içermiyor."
+  },
+  "subtitle": "LDAP gruplar (groupOfNames / posixGroup).",
+  "columns": {
+    "cn": "CN",
+    "description": "Açıklama",
+    "type": "Tip",
+    "members": "Üye"
+  },
+  "form": {
+    "memberDnDesc": "Üyeler DN ile (LDAP standardı, modern)",
+    "memberUidDesc": "Üyeler uid string'i ile (POSIX/NIS)",
+    "cnRule": "CN 3-64 karakter; harfle başlar; harf/rakam/./_/-/boşluk içerebilir.",
+    "descLimit": "Açıklama en fazla 512 karakter olabilir.",
+    "cnLocked": "CN değiştirilemez.",
+    "description": "Açıklama",
+    "saving": "Kaydediliyor…",
+    "create": "Oluştur",
+    "groupType": "Grup Tipi"
+  },
+  "empty": {
+    "title": "Henüz grup yok",
+    "description": "İlk grubu oluşturarak başlayın."
+  }
+}

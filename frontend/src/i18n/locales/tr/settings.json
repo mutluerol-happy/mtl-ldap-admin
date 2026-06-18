@@ -1,0 +1,55 @@
+{
+  "title": "Sistem Ayarları",
+  "subtitle": "Parola politikası, MFA, audit saklama, SMTP ve e-posta şablonları.",
+  "refresh": "Yenile",
+  "loadError": "Ayarlar yüklenemedi",
+  "systemInfo": {
+    "title": "Sistem Bilgisi",
+    "fields": {
+      "version": "Versiyon",
+      "profile": "Profile",
+      "nodeId": "Node ID",
+      "python": "Python",
+      "fastapi": "FastAPI",
+      "postgresql": "PostgreSQL",
+      "redis": "Redis",
+      "ldapUri": "LDAP URI",
+      "ldapBaseDn": "LDAP Base DN"
+    }
+  },
+  "categories": {
+    "password_policy": {
+      "title": "Parola Politikası",
+      "description": "Kullanıcı ve yönetici parolaları için zorunluluklar."
+    },
+    "mfa_policy": {
+      "title": "MFA Politikası",
+      "description": "İki faktörlü doğrulama zorunluluğu ve süreleri."
+    },
+    "audit_retention": {
+      "title": "Audit Saklama",
+      "description": "Olay kayıtlarının ne kadar saklanacağı."
+    },
+    "smtp": {
+      "title": "SMTP",
+      "description": "Çıkış e-postaları için sunucu yapılandırması."
+    },
+    "email_templates": {
+      "title": "E-posta Şablonları",
+      "description": "Bildirim e-postaları için içerik şablonları."
+    },
+    "sms": {
+      "title": "SMS",
+      "description": "SMS sağlayıcı yapılandırması."
+    },
+    "notifications": {
+      "title": "Bildirimler",
+      "description": "Bildirim kanalları ve filtreleri."
+    },
+    "password_reset": {
+      "title": "Parola Sıfırlama",
+      "description": "Self-service parola sıfırlama davranışı."
+    }
+  },
+  "serviceStatus": "Servis Durumları"
+}

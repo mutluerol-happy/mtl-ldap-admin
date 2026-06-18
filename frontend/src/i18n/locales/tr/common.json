@@ -1,0 +1,96 @@
+{
+  "app": {
+    "name": "MTL LDAP Admin",
+    "master": "Master",
+    "slave": "Slave"
+  },
+  "actions": {
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "create": "Oluştur",
+    "search": "Ara",
+    "refresh": "Yenile",
+    "back": "Geri",
+    "next": "İleri",
+    "close": "Kapat",
+    "yes": "Evet",
+    "no": "Hayır",
+    "ok": "Tamam",
+    "submit": "Gönder",
+    "confirm": "Onayla",
+    "remove": "Kaldır"
+  },
+  "labels": {
+    "loading": "Yükleniyor...",
+    "empty": "Kayıt yok",
+    "error": "Hata",
+    "success": "Başarılı",
+    "username": "Kullanıcı Adı",
+    "password": "Parola",
+    "email": "E-posta",
+    "phone": "Telefon"
+  },
+  "language": {
+    "title": "Dil",
+    "tr": "Türkçe",
+    "en": "İngilizce"
+  },
+  "pagination": {
+    "records": "kayıt",
+    "pageSize": "Sayfa boyutu",
+    "prevPage": "Önceki sayfa",
+    "nextPage": "Sonraki sayfa"
+  },
+  "loading": "Yükleniyor…",
+  "cancel": "Vazgeç",
+  "save": "Kaydet",
+  "saving": "Kaydediliyor…",
+  "submit": "Gönder",
+  "submitting": "Gönderiliyor…",
+  "apply": "Uygula",
+  "applying": "Uygulanıyor…",
+  "yes": "Evet",
+  "no": "Hayır",
+  "loadFailed": "{{item}} yüklenemedi",
+  "userActions": {
+    "activate": "Aktifleştir",
+    "disable": "Devre dışı bırak",
+    "resetPassword": "Parolayı sıfırla",
+    "unlock": "Kilidi aç",
+    "resetMfa": "MFA'yı sıfırla"
+  },
+  "queryStatus": {
+    "loadingMatching": "Eşleşen kullanıcı yok.",
+    "loadingPrompt": "Aramaya başlayın."
+  },
+  "alertStatus": {
+    "open": "Açık",
+    "acknowledged": "Onaylandı",
+    "resolved": "Çözüldü",
+    "suppressed": "Bastırıldı"
+  },
+  "queueStatus": {
+    "pending": "Bekliyor",
+    "sent": "Gönderildi",
+    "failed": "Başarısız",
+    "abandoned": "Vazgeçildi"
+  },
+  "discrepancyType": {
+    "attributeMismatch": "Öznitelik Uyumsuz"
+  },
+  "typeToConfirm": "Onaylamak için \"{{text}}\" yazın",
+  "booleanActive": "Aktif",
+  "booleanInactive": "Pasif",
+  "minutesShort": "dk",
+  "password": {
+    "lengthRange": "{{min}}-{{max}} karakter",
+    "upper": "büyük harf",
+    "lower": "küçük harf",
+    "digit": "rakam",
+    "special": "özel karakter",
+    "policyHint": "{{min}} karakter — {{hint}}.",
+    "policyHintRange": "{{min}}-{{max}} karakter — {{hint}}."
+  }
+}

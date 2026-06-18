@@ -1,0 +1,23 @@
+{
+  "title": "Senkronizasyon",
+  "scan": {
+    "start": "Tarama başlat",
+    "running": "Taranıyor…",
+    "never": "Hiç taranmadı"
+  },
+  "stats": {
+    "ldapUsers": "LDAP Kullanıcı",
+    "dbUsers": "DB Kullanıcı",
+    "inSync": "Senkron",
+    "discrepancies": "Tutarsızlık"
+  },
+  "subtitle": "LDAP dizini ile veritabanı arasındaki tutarsızlıkları takip eder.",
+  "refresh": "Yenile",
+  "loading": "Yükleniyor…",
+  "lastScan": "Son tarama:",
+  "unresolvedDiscrepancies": "Çözülmemiş Tutarsızlıklar",
+  "allInSync": "Tüm kayıtlar senkron",
+  "noDiscrepancies": "LDAP ↔ DB tutarsızlığı yok.",
+  "ldapPrefix": "LDAP:",
+  "dbPrefix": "DB:"
+}

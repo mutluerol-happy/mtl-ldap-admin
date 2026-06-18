@@ -1,0 +1,60 @@
+# ============================================================================
+# MTL LDAP Admin — Slave (Consumer) Kurulum Yapılandırması (Örnek)
+# ============================================================================
+#   cp mtl-slave-install.conf.example /etc/mtl-slave-install.conf
+#   chmod 600 /etc/mtl-slave-install.conf
+#   nano /etc/mtl-slave-install.conf
+#   bash mtl-slave-install.sh --config /etc/mtl-slave-install.conf
+#
+# ÖNŞART: master kurulu+ayakta. Master mtl-secrets.txt'ten REPLICATOR_PASSWORD,
+# CLUSTER_SECRET, FERNET_KEY ve master cn=admin parolasını buraya taşıyın.
+# Sertifikaları master'dan kopyalayın (aşağıdaki *_SRC yolları).
+# Parolalarda BOŞLUK kullanmayın (LDIF/syncrepl tek-satır değeri).
+# ============================================================================
+
+# --- Sunucu Bilgileri ---
+MASTER_IP=192.0.2.42
+SLAVE_IP=192.0.2.44
+MASTER_HOSTNAME=mtl-master-01.mtl.local
+SLAVE_HOSTNAME=mtl-slave-01.mtl.local
+
+# --- LDAP ---
+LDAP_BASE_DN=dc=mtl,dc=local
+LDAP_ORGANIZATION=MTL
+
+# Slave LOKAL LDAP admin (slave mdb rootpw — lokal yönetim/slapcat için)
+SLAVE_LDAP_ADMIN_PASSWORD=slave-lokal-admin-parolasi
+# Slave cn=config admin (overlay/şema config uygulamak için)
+LDAP_CONFIG_PASSWORD=slave-config-admin-parolasi
+
+# MASTER cn=admin parolası — slave YAZIMLARI master'a gider (parola reset vb.)
+# Bu, master kurulumundaki LDAP_ADMIN_PASSWORD ile AYNI olmalı.
+MASTER_LDAP_ADMIN_PASSWORD=master-cn-admin-parolasi
+
+# Replicator (master ile AYNI — syncrepl bağlanması için)
+REPLICATOR_PASSWORD=replicator-parolasi
+
+# --- Veritabanı (slave kendi lokal DB'si) ---
+SLAVE_PG_PASSWORD=mtl_slave-icin-guclu-parola
+SLAVE_REDIS_PASSWORD=redis-icin-guclu-parola
+
+# --- Cluster / Şifreleme (master ile AYNI olmalı) ---
+# CLUSTER_SECRET: HMAC audit forwarding — master ile AYNI olmalı.
+CLUSTER_SECRET=master-ile-ayni-cluster-secret
+# FERNET_KEY: MFA sırlarının (LDAP'taki mtlMfaSecret) çözülebilmesi için
+# master ile AYNI olmalı. Master mtl-secrets.txt'ten kopyalayın.
+FERNET_KEY=master-ile-ayni-fernet-key
+
+# --- Opsiyonel ---
+# SECRET_KEY boş bırakılırsa otomatik üretilir (slave'e özel olabilir).
+# SECRET_KEY=
+
+# --- Kaynak ve Master'dan Kopyalanan Sertifikalar ---
+MTL_SOURCE_DIR=/opt/mtl-source/mtl-ldap-admin
+# Master'dan scp ile getirip aşağıdaki yollara koyun:
+#   master:/etc/mtl/ssl/mtl-ca.pem        -> MTL_CA_SRC
+#   master:/etc/mtl/ssl/slave-server.pem  -> SLAVE_CERT_SRC
+#   master:/etc/mtl/ssl/slave-server.key  -> SLAVE_KEY_SRC
+MTL_CA_SRC=/opt/mtl-source/certs/mtl-ca.pem
+SLAVE_CERT_SRC=/opt/mtl-source/certs/slave-server.pem
+SLAVE_KEY_SRC=/opt/mtl-source/certs/slave-server.key

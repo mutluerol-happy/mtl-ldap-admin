@@ -1,0 +1,52 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 Mutlu Erol
+[Unit]
+Description=MTL LDAP Slave API Server (Password Reset Portal)
+Documentation=https://github.com/MutluErol/mtl-ldap-admin
+After=network-online.target postgresql-16.service redis.service slapd.service
+Wants=network-online.target
+Requires=postgresql-16.service redis.service slapd.service
+
+[Service]
+Type=notify
+User=mtl
+Group=mtl
+WorkingDirectory=/opt/mtl/app
+EnvironmentFile=/etc/mtl/mtl-ldap.env
+
+ExecStart=/opt/mtl/venv/bin/gunicorn \
+    --workers 2 \
+    --worker-class uvicorn.workers.UvicornWorker \
+    --bind ${MTL_LISTEN_HOST}:${MTL_LISTEN_PORT} \
+    --timeout 60 \
+    --graceful-timeout 30 \
+    --max-requests 1000 \
+    --access-logfile - \
+    --error-logfile - \
+    app.main:app
+
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+KillSignal=SIGTERM
+TimeoutStopSec=30
+Restart=on-failure
+RestartSec=5
+
+# Hardening
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/log/mtl /var/lib/mtl
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+RestrictNamespaces=true
+LockPersonality=true
+
+LimitNOFILE=65536
+LimitNPROC=8192
+
+[Install]
+WantedBy=multi-user.target

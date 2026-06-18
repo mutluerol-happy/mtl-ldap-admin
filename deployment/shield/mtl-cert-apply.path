@@ -1,0 +1,11 @@
+[Unit]
+Description=MTL Shield cert-apply kuyruk izleyici (queue watcher)
+After=network.target
+
+[Path]
+# Web servisi (mtl) buraya <id>.req atinca oneshot runner tetiklenir
+PathExistsGlob=/var/lib/mtl/shield/queue/*.req
+Unit=mtl-cert-apply.service
+
+[Install]
+WantedBy=multi-user.target

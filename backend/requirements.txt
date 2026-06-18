@@ -1,0 +1,51 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 Mutlu Erol
+#
+# MTL LDAP Admin Backend bağımlılıkları
+# Tüm sürümler 2026 Mayıs itibarıyla stabil olarak seçilmiştir.
+
+# Web framework
+fastapi==0.115.0
+uvicorn[standard]==0.32.0
+gunicorn==23.0.0
+
+# Validation & config
+pydantic==2.9.2
+pydantic-settings==2.5.2
+
+# Database
+sqlalchemy[asyncio]==2.0.36
+asyncpg==0.29.0
+alembic==1.13.3
+
+# Redis & caching
+redis[hiredis]==5.1.1
+
+# Security
+pyjwt[crypto]==2.9.0
+bcrypt==4.2.0
+cryptography==43.0.1
+pyotp==2.9.0
+qrcode[pil]==7.4.2
+
+# LDAP password hashing ({SSHA} için passlib-ldap)
+passlib==1.7.4
+
+# LDAP
+ldap3==2.9.1
+
+# HTTP client (cluster sync)
+httpx==0.27.2
+
+# Async task queue
+celery[redis]==5.4.0
+
+# Logging
+structlog==24.4.0
+python-json-logger==2.0.7
+
+# Utilities
+python-multipart==0.0.12
+email-validator==2.2.0
+python-dateutil==2.9.0.post0
+tenacity==9.0.0

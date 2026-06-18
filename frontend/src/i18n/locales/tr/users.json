@@ -1,0 +1,114 @@
+{
+  "title": "Kullanıcılar",
+  "newUser": "Yeni kullanıcı",
+  "newUserTitle": "Yeni Kullanıcı",
+  "columns": {
+    "uid": "UID",
+    "name": "İsim",
+    "email": "E-posta",
+    "status": "Durum",
+    "mfa": "MFA",
+    "lastLogin": "Son giriş"
+  },
+  "status": {
+    "active": "Etkin",
+    "disabled": "Devre dışı",
+    "locked": "Kilitli"
+  },
+  "search": {
+    "placeholder": "UID, isim veya e-posta…"
+  },
+  "empty": {
+    "title": "Henüz kullanıcı yok",
+    "description": "Yeni bir kullanıcı oluşturun veya CSV ile toplu içe aktarın."
+  },
+  "delete": {
+    "title": "Kullanıcıyı sil",
+    "confirm": "Sil"
+  },
+  "reset": {
+    "title": "Parolayı sıfırla: {{uid}}",
+    "titleGeneric": "Parolayı sıfırla",
+    "submit": "Sıfırla",
+    "submitting": "Sıfırlanıyor…",
+    "newPasswordLabel": "Yeni parola",
+    "policyHint": "Yeni parola en az {{min}} karakter olmalı; {{hint}}"
+  },
+  "detail": {
+    "back": "Geri",
+    "edit": "Düzenle",
+    "delete": "Sil",
+    "editTitle": "Kullanıcıyı Düzenle: {{uid}}",
+    "security": "Güvenlik",
+    "identity": "Kimlik & İletişim",
+    "membershipsTitle": "Grup üyelikleri"
+  },
+  "fields": {
+    "uid": "UID",
+    "cn": "CN",
+    "sn": "Soyad (sn)",
+    "givenName": "Ad",
+    "displayName": "Görünen ad",
+    "preferredLanguage": "Tercih edilen dil",
+    "email": "E-posta",
+    "phone": "Telefon",
+    "title": "Ünvan",
+    "department": "Departman",
+    "mfa": "MFA",
+    "mfaEnrolled": "MFA kayıt",
+    "passwordChanged": "Son parola değişimi",
+    "passwordExpires": "Parola son kullanma",
+    "mustChangePassword": "İlk girişte değiştir",
+    "failedLoginCount": "Başarısız giriş",
+    "lockedUntil": "Kilit bitiş",
+    "lastLogin": "Son giriş",
+    "lastLoginIp": "Son giriş IP"
+  },
+  "mfaStatus": {
+    "enabled": "Etkin",
+    "disabled": "Devre dışı"
+  },
+  "subtitle": "LDAP dizinindeki tüm son-kullanıcı hesapları.",
+  "bulkImport": "Toplu içe aktar",
+  "form": {
+    "uidHint": "UID küçük harfle başlamalı; 3-64 karakter; sadece küçük harf, rakam ve . _ -",
+    "cnRequired": "CN (Görünen tam ad) zorunludur.",
+    "emailInvalid": "Geçerli bir e-posta girin.",
+    "passwordPolicy": "Parola en az {{min}} karakter olmalıdır.",
+    "passwordsDontMatch": "Parolalar uyuşmuyor.",
+    "uidLocked": "UID değiştirilemez.",
+    "cn": "CN (görünen tam ad)",
+    "cnHint": "LDAP cn — örn. 'Mutlu Erol'",
+    "displayName": "Görünen ad (display name)",
+    "contact": "İletişim",
+    "phone": "Telefon",
+    "title": "Ünvan",
+    "department": "Departman",
+    "initialPassword": "İlk Parola",
+    "mustChangeOnFirstLogin": "Kullanıcı ilk girişte parolasını değiştirsin",
+    "identity": "Kimlik",
+    "uid": "UID",
+    "uidPlaceholder": "ornek.kullanici",
+    "sn": "Soyad (sn)",
+    "snRequired": "Soyad zorunludur.",
+    "givenName": "Ad (given name)",
+    "preferredLanguage": "Tercih edilen dil",
+    "email": "E-posta",
+    "organization": "Organizasyon",
+    "password": "Parola",
+    "passwordConfirm": "Parola (tekrar)",
+    "status": "Durum",
+    "uidRequired": "UID zorunludur.",
+    "passwordRequired": "Parola zorunludur.",
+    "saving": "Kaydediliyor…",
+    "create": "Oluştur",
+    "save": "Kaydet"
+  },
+  "passwordReset": {
+    "title": "Parolayı sıfırla: {{name}}",
+    "button": "Sıfırla",
+    "submitting": "Sıfırlanıyor…",
+    "forceChange": "Kullanıcı bir sonraki girişte parolasını değiştirsin"
+  },
+  "loadError": "Kullanıcı yüklenemedi"
+}
