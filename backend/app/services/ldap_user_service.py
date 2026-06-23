@@ -51,6 +51,7 @@ def _set_shadow_lock(conn, dn: str, uid: str) -> None:
         # shadowAccount aux class garanti (varsa err=20 doner, yutulur)
         conn.modify(dn, {"objectClass": [(MODIFY_ADD, ["shadowAccount"])]})
         conn.modify(dn, {"shadowExpire": [(MODIFY_REPLACE, ["1"])]})
+        conn.modify(dn, {"pwdAccountLockedTime": [(MODIFY_REPLACE, ["000001010000Z"])]})
         logger.info("ldap.user.shadow_locked", uid=uid)
     except Exception as _e:  # noqa: BLE001
         logger.warning("ldap.user.shadow_lock_failed", uid=uid, error=str(_e))
@@ -67,6 +68,7 @@ def _clear_shadow_lock(conn, dn: str, uid: str) -> None:
             "shadowLastChange": [(MODIFY_REPLACE, [today])],
         })
         conn.modify(dn, {"pwdReset": [(MODIFY_REPLACE, [])]})
+        conn.modify(dn, {"pwdAccountLockedTime": [(MODIFY_REPLACE, [])]})
         logger.info("ldap.user.shadow_unlocked", uid=uid)
     except Exception as _e:  # noqa: BLE001
         logger.warning("ldap.user.shadow_unlock_failed", uid=uid, error=str(_e))

@@ -780,7 +780,7 @@ pwdMaxFailure: 5
 pwdLockout: TRUE
 pwdLockoutDuration: 900
 pwdGraceAuthnLimit: 0
-pwdMustChange: FALSE
+pwdMustChange: TRUE
 pwdAllowUserChange: TRUE
 pwdSafeModify: FALSE
 EOF

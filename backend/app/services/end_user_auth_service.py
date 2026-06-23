@@ -21,7 +21,7 @@ from uuid import UUID
 import pyotp
 import qrcode
 from cryptography.fernet import Fernet
-from ldap3 import Connection, MODIFY_REPLACE, Server, ALL
+from ldap3 import BASE, Connection, MODIFY_REPLACE, Server, ALL
 from passlib.hash import ldap_salted_sha1
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -69,6 +69,42 @@ def _decrypt_secret(encrypted: str) -> str:
 # ============================================================================
 
 
+def _admin_verify_locked_must_change(dn: str, password: str) -> bool:
+    """must_change (pwdReset:TRUE) nedeniyle hard-lock'lu hesabin parolasini
+    admin-bind ile dogrula. 3. parti uygulamalar bu yolu yapmaz -> kilitli kalir;
+    kullanici MTL'ye girip parolasini degistirebilir. Sadece pwdReset:TRUE ise."""
+    try:
+        from passlib.context import CryptContext
+        _pwctx = CryptContext(schemes=[
+            "ldap_salted_sha1", "ldap_sha1",
+            "ldap_salted_md5", "ldap_md5", "ldap_plaintext",
+        ])
+        ldap_client = get_ldap()
+        with ldap_client.read() as conn:
+            conn.search(dn, "(objectClass=*)", search_scope=BASE,
+                        attributes=["pwdReset", "userPassword"])
+            if not conn.entries:
+                return False
+            entry = conn.entries[0]
+            pr = entry.pwdReset.value if "pwdReset" in entry else None
+            if str(pr).upper() != "TRUE":
+                return False
+            # ppolicy kilidi (pwdAccountLockedTime) slapd compare'i reddettiginden
+            # hash'i okuyup passlib ile dogrula (kilitten bagimsiz).
+            vals = entry.userPassword.values if "userPassword" in entry else []
+            for _v in vals:
+                _h = _v.decode("utf-8", "ignore") if isinstance(_v, (bytes, bytearray)) else str(_v)
+                try:
+                    if _pwctx.verify(password, _h):
+                        return True
+                except Exception:  # noqa: BLE001
+                    continue
+            return False
+    except Exception as _e:  # noqa: BLE001
+        logger.debug("end_user.admin_verify_failed", dn=dn, error=str(_e))
+        return False
+
+
 def _ldap_authenticate(dn: str, password: str) -> bool:
     """Geçici bağlantı ile DN+parola bind dene."""
     settings = get_settings()
@@ -80,6 +116,9 @@ def _ldap_authenticate(dn: str, password: str) -> bool:
         return True
     except Exception as e:  # noqa: BLE001
         logger.debug("end_user.ldap_bind_failed", dn=dn, error=str(e))
+        if _admin_verify_locked_must_change(dn, password):
+            logger.info("end_user.locked_must_change_fallback_ok", dn=dn)
+            return True
         return False
 
 
