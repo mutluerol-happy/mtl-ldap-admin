@@ -163,7 +163,10 @@ async def create_admin(
         _must_change = False
     else:
         _pw_hash = hash_password(payload.password)
-        _sec_flags = {}
+        # LDAP'ta da entry yaratildiysa (create_in_ldap) admin tek-kaynak LDAP olsun:
+        # login ldap_dn'e simple-bind eder, self-service/telefon reset otomatik gecerli.
+        # Saf DB-only admin (ldap_dn yok) ise DB hash ile login kalir.
+        _sec_flags = {"auth_source": "ldap"} if ldap_dn else {}
         _must_change = payload.must_change_password
     admin = AdminAccount(
         username=payload.username,

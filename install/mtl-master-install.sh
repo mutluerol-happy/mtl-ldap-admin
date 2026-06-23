@@ -562,7 +562,7 @@ olcDbIndex: objectClass eq
 olcDbIndex: cn,uid,mail eq,sub
 olcDbIndex: entryCSN,entryUUID eq
 olcAccess: to attrs=userPassword by self write by anonymous auth by * none
-olcAccess: to * by self write by users read by anonymous auth
+olcAccess: to * by self read by anonymous auth
 
 dn: olcDatabase=mdb,cn=config
 objectClass: olcDatabaseConfig
@@ -775,7 +775,7 @@ pwdMinAge: 0
 pwdMaxAge: 7776000
 pwdInHistory: 5
 pwdCheckQuality: 1
-pwdMinLength: 12
+pwdMinLength: 8
 pwdMaxFailure: 5
 pwdLockout: TRUE
 pwdLockoutDuration: 900

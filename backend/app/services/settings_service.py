@@ -385,6 +385,23 @@ async def update_setting(
     s.updated_by = actor_id
     await db.flush()
 
+    # --- password.min_length -> LDAP ppolicy pwdMinLength otomatik senkron ---
+    # Tek kaynak = Settings. LDAP pwdMinLength her zaman bu degeri yansitir.
+    # Best-effort: LDAP erisilemezse Settings kaydi yine de gecerli kalir.
+    if category == "password_policy" and key == "password.min_length":
+        try:
+            from app.core.ldap import get_ldap
+            from app.core.config import get_settings as _gs
+            from ldap3 import MODIFY_REPLACE
+            _minlen = int(new_value)
+            _base = _gs().ldap_base_dn
+            _policy_dn = f"cn=default,ou=policies,{_base}"
+            with get_ldap().write() as _conn:
+                _conn.modify(_policy_dn, {"pwdMinLength": [(MODIFY_REPLACE, [str(_minlen)])]})
+            logger.info("settings.pwdminlength_synced", value=_minlen, dn=_policy_dn)
+        except Exception as _e:  # noqa: BLE001
+            logger.warning("settings.pwdminlength_sync_failed", error=str(_e))
+
     return s, old_display, new_display
 
 
