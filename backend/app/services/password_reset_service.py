@@ -278,7 +278,18 @@ async def request_reset(
         if not sent:
             logger.warning("password_reset.email_send_failed", uid=real_uid)
     elif effective_channel == "sms" and real_phone:
-        sms_text = f"MTL parola sifirlama kodu: {otp}. {OTP_TTL_MINUTES} dakika gecerli."
+        # SMS metni Settings'ten (sms.message_template); bossa varsayilan sabit metin.
+        _sms_tmpl = await _settings_svc.get_value(db, "sms", "sms.message_template")
+        if _sms_tmpl:
+            try:
+                sms_text = (_sms_tmpl
+                            .replace("{otp}", str(otp))
+                            .replace("{ttl}", str(OTP_TTL_MINUTES))
+                            .replace("{uid}", str(real_uid)))
+            except Exception:  # noqa: BLE001
+                sms_text = f"MTL parola sifirlama kodu: {otp}. {OTP_TTL_MINUTES} dakika gecerli."
+        else:
+            sms_text = f"MTL parola sifirlama kodu: {otp}. {OTP_TTL_MINUTES} dakika gecerli."
         try:
             from app.services import sms_service
             result = await sms_service.send_sms(db, to=real_phone, text=sms_text)
