@@ -89,6 +89,21 @@ async def export_settings_for_sync(
 ) -> dict:
     """Slave'in cektigi org ayarlari. HMAC ile korunur; whitelist kategoriler."""
     items = await settings_service.export_settings(db)
+    # Canlilik: cagiran node bizimle simdi konustu -> last_sync_at tazele (panel "online").
+    try:
+        from sqlalchemy import update as _sa_update
+        from app.models.cluster import ClusterNode as _CN
+        from datetime import datetime as _dt, timezone as _tz
+        await db.execute(
+            _sa_update(_CN).where(
+                (_CN.node_id == source_node_id)
+                | (_CN.node_id.like(source_node_id + ".%"))
+            )
+            .values(last_sync_at=_dt.now(_tz.utc))
+        )
+        await db.commit()
+    except Exception as _e:  # noqa: BLE001
+        logger.warning("cluster.export_touch_failed", node=source_node_id, error=str(_e))
     logger.info("cluster.settings_export", node=source_node_id, count=len(items))
     return {
         "settings": items,

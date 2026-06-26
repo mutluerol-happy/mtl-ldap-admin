@@ -148,13 +148,24 @@ async def get_cluster_status(db: AsyncSession) -> dict[str, Any]:
     nodes_stmt = select(ClusterNode).order_by(ClusterNode.node_type, ClusterNode.node_id)
     nodes = list((await db.execute(nodes_stmt)).scalars())
 
-    # Stale node detection — son heartbeat'i 2 dk'dan eski ise offline işaretle
-    stale_threshold = datetime.now(timezone.utc) - timedelta(minutes=2)
+    # Canlilik tespiti (GERCEK sinyale dayali; is_self kolonu yok -> node_type ile):
+    #  - MASTER node: kod master'da calisir; bu yaniti donebiliyorsa makine ayaktadir -> "online".
+    #  - SLAVE node'lar: son heartbeat VEYA son sync (last_sync_at) esik icindeyse "online".
+    #    Slave master'a surekli baglanir (settings-export/sync) -> last_sync_at tazedir.
+    #  Not: okuma islemi; durum yanitta hesaplanir (kalici DB yazimi/flush yok).
+    LIVENESS_THRESHOLD = timedelta(minutes=2)
+    _now = datetime.now(timezone.utc)
     for n in nodes:
-        if n.last_heartbeat_at and n.last_heartbeat_at < stale_threshold and n.status == "online":
-            n.status = "offline"
-    if any(n for n in nodes if n.status == "offline"):
-        await db.flush()
+        if n.status == "degraded":
+            continue
+        if n.node_type == "MASTER":
+            n.status = "online"
+            continue
+        _last = None
+        for _ts in (n.last_heartbeat_at, n.last_sync_at):
+            if _ts and (_last is None or _ts > _last):
+                _last = _ts
+        n.status = "online" if (_last and (_now - _last) <= LIVENESS_THRESHOLD) else "offline"
 
     master_node = next((n.node_id for n in nodes if n.node_type == "MASTER"), None)
     online = sum(1 for n in nodes if n.status == "online")
