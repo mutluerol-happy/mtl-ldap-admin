@@ -148,6 +148,37 @@ async def _log(
         extra=extra or {},
     ))
     await db.flush()
+    # AŞAMA 1: standart audit kanalina (event_log) da yaz -> panelde gorunur + (ileride) forward.
+    # Slave'de is_master=False oldugundan log_event forward TETIKLEMEZ. best-effort: hata login'i bozmaz.
+    try:
+        from app.services import audit_service as _audit
+        _CODE_MAP = {
+            "END_USER_LOGIN": ("LOGIN_SUCCESS" if successful else "LOGIN_FAILED"),
+            "END_USER_LOGIN_MFA_REQUIRED": "LOGIN_MFA_REQUIRED",
+            "END_USER_MFA_FAILED": "LOGIN_MFA_FAILED",
+            "END_USER_PASSWORD_CHANGE": ("PASSWORD_CHANGED" if successful else "PASSWORD_CHANGE_FAILED"),
+        }
+        _evcode = _CODE_MAP.get(event_code, event_code)
+        _sev = "INFO" if successful else "WARNING"
+        _det = {"source": "self_service", "origin_event": event_code}
+        if error_code:
+            _det["error_code"] = error_code
+        if extra:
+            _det.update({k: v for k, v in extra.items() if k in ("mfa_used",)})
+        await _audit.log_event(
+            db,
+            category="SECURITY",
+            event_code=_evcode,
+            severity=_sev,
+            actor_type="END_USER",
+            actor_id=uid,
+            actor_display=uid,
+            ip_address=ip,
+            user_agent=user_agent,
+            details=_det,
+        )
+    except Exception as _e:  # noqa: BLE001
+        logger.warning("end_user.event_log_mirror_failed", event_code=event_code, error=str(_e))
 
 
 # ============================================================================

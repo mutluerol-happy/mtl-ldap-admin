@@ -217,16 +217,26 @@ async def list_queue_items(
 
 
 async def enqueue_audit_event(db: AsyncSession, event: EventLog) -> None:
-    """Master tarafı: log_event sonrası queue'ya at — sadece master ise."""
-    settings = get_settings()
-    if not settings.is_master:
-        return
+    """log_event sonrası queue'ya at.
 
-    # Sadece SLAVE'lere gönderilecek
-    slaves_stmt = select(ClusterNode).where(ClusterNode.node_type == "SLAVE")
-    slaves = list((await db.execute(slaves_stmt)).scalars())
-    if not slaves:
-        return  # Slave yok, queue boşa atma
+    - MASTER: kendi event'lerini tüm SLAVE node'lara gönderir.
+    - SLAVE : SADECE kendi ürettiği (server_node == node_id) event'leri MASTER'a gönderir.
+              Döngü önleme: master'dan forward edilen event'ler (server_node != node_id) gönderilmez.
+    """
+    settings = get_settings()
+
+    if settings.is_master:
+        # Sadece SLAVE'lere gönderilecek
+        targets_stmt = select(ClusterNode).where(ClusterNode.node_type == "SLAVE")
+        targets = list((await db.execute(targets_stmt)).scalars())
+    else:
+        # SLAVE: yalnızca kendi ürettiği event'i MASTER'a forward et (döngü önleme)
+        if event.server_node != settings.node_id:
+            return  # master'dan forward edilen event — geri gönderme
+        targets_stmt = select(ClusterNode).where(ClusterNode.node_type == "MASTER")
+        targets = list((await db.execute(targets_stmt)).scalars())
+    if not targets:
+        return  # Hedef node yok, queue boşa atma
 
     payload = {
         "id": str(event.id),
@@ -247,7 +257,7 @@ async def enqueue_audit_event(db: AsyncSession, event: EventLog) -> None:
         "details": event.details or {},
     }
 
-    for slave in slaves:
+    for slave in targets:
         db.add(SyncQueue(
             target_node_id=slave.node_id,
             payload_type="AUDIT_EVENT",

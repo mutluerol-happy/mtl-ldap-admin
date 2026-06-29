@@ -72,8 +72,10 @@ async def log_event(
     db.add(event)
     await db.flush()
 
-    # Tur 4: Master ise cluster forward queue'ya at (slave'ler için)
-    if settings.is_master:
+    # Tur 4 + AŞAMA 2: cluster forward queue'ya at.
+    #  - Master: kendi event'ini SLAVE'lere (enqueue ici karar verir).
+    #  - Slave : SADECE kendi urettigi (server_node==node_id) event'i MASTER'a (enqueue ici dongu-filtreli).
+    if settings.is_master or settings.is_slave:
         try:
             from app.services import cluster_service
             await cluster_service.enqueue_audit_event(db, event)

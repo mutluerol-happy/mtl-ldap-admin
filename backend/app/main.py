@@ -65,6 +65,25 @@ async def lifespan(app: FastAPI):
                 await ensure_bootstrap_admin(db)
         except Exception:  # noqa: BLE001
             logger.exception("app.bootstrap.failed")
+    # AŞAMA 2: Slave ise MASTER'i node tablosuna kaydet (audit forward hedefi, idempotent)
+    if settings.is_slave and settings.master_url:
+        try:
+            from urllib.parse import urlparse
+            from app.core.db import session_scope as _ss
+            from app.services import cluster_service as _cs
+            _master_host = urlparse(settings.master_url).hostname or "master"
+            async with _ss() as _db:
+                await _cs.register_node(
+                    _db,
+                    node_id=_master_host,
+                    node_type="MASTER",
+                    hostname=_master_host,
+                    base_url=settings.master_url,
+                )
+                await _db.commit()
+            logger.info("app.slave.master_registered", master=_master_host)
+        except Exception:  # noqa: BLE001
+            logger.exception("app.slave.master_register_failed")
             # Bootstrap başarısız olursa uygulama yine de açılır;
             # operatör log'a bakıp düzeltir.
 

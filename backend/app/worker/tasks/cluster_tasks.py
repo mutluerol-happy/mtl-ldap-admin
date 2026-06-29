@@ -61,8 +61,10 @@ async def _isolated_session():
 def flush_sync_queue_task(self) -> dict[str, Any]:
     """Master tarafı: pending audit event'leri slave'lere POST et."""
     settings = get_settings()
-    if not settings.is_master:
-        return {"skipped": "not_master"}
+    # AŞAMA 2: master VE slave flush eder (slave->master audit forward icin).
+    # Hedef kuyruktaki target_node_id'den gelir; enqueue dogru yonu yazar.
+    if not (settings.is_master or settings.is_slave):
+        return {"skipped": "no_profile"}
 
     try:
         return asyncio.run(_flush_async())
